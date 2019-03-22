@@ -14,43 +14,52 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/main_sensor1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:text="시작"
+                android:text="센서 1"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/main_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhiteDark"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:padding="10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Start: "
-                    android:textSize="18sp" />
+                    android:gravity="center_vertical|end">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="시작하지 않음"
-                    android:textSize="18sp" />
+                    <Button
+                        android:id="@+id/main_sensor1_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="1-18 기본설정(필수)" />
+
+
+                    <Button
+                        android:id="@+id/main_sensor1_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="시작" />
+
+                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -81,128 +90,73 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="속도"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="속도"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor2_speed"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor2_speed"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0km/h"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="거리"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/main_sensor2_distance"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0cm"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="통과유무"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="점수"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/main_sensor2_pass"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="X"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/main_sensor2_score"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/main_sensor2_setting"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
+                        android:layout_gravity="end"
+                        android:text="2-7 기본설정(필수)" />
 
-                    <EditText
-                        android:id="@+id/main_sensor2_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor2_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor2_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -214,7 +168,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -235,128 +188,72 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="거리"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="속도"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor3_speed"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor3_distance"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0cm"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="거리"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/main_sensor3_distance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0cm"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="점수"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="점수"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor3_score"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor3_score"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/main_sensor3_input"
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end">
+
+                    <Button
+                        android:id="@+id/main_sensor3_setting"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor3_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor3_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
+                        android:layout_gravity="end"
+                        android:text="3-4 기본 설정(필수)" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -368,7 +265,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -389,128 +285,109 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="속도"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="속도"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor4_speed"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor4_speed"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0km/h"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="거리"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/main_sensor4_distance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0cm"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="거리"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="점수"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor4_score"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor4_distance"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0cm"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/main_sensor4_input"
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="점수"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor4_score"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <Button
-                            android:id="@+id/main_sensor4_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
+                <EditText
+                    android:id="@+id/main_sensor4_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textSize="16sp" />
 
-                        <Button
-                            android:id="@+id/main_sensor4_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end">
+
+                    <Button
+                        android:id="@+id/main_sensor4_admit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="적용" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -522,7 +399,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -549,30 +425,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="속도"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor5_speed"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -634,21 +487,6 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
-
-                    <EditText
-                        android:id="@+id/main_sensor5_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:gravity="center_vertical|end">
 
                         <Button
@@ -656,14 +494,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor5_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
+                            android:text="5-6 기본 설정(필수)" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -676,7 +507,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -785,12 +615,6 @@
                             android:textSize="18sp" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
-
                     <EditText
                         android:id="@+id/main_sensor6_input"
                         android:layout_width="match_parent"
@@ -804,13 +628,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor6_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
 
                         <Button
                             android:id="@+id/main_sensor6_admit"
@@ -897,18 +714,47 @@
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="거리"
+                            android:text="소요시간"
                             android:textAlignment="textStart"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/main_sensor7_distance"
+                            android:id="@+id/main_sensor7_time"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="0cm"
+                            android:text="0ms"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="통과유무"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/main_sensor7_pass"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="X"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -962,13 +808,6 @@
                         android:gravity="center_vertical|end">
 
                         <Button
-                            android:id="@+id/main_sensor7_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
                             android:id="@+id/main_sensor7_admit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -986,7 +825,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1042,30 +880,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="거리"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor8_distance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0cm"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1079,18 +894,18 @@
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="점수"
+                            android:text="통과유무"
                             android:textAlignment="textStart"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/main_sensor8_score"
+                            android:id="@+id/main_sensor8_pass"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="0"
+                            android:text="X"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -1100,15 +915,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
-
-                    <EditText
-                        android:id="@+id/main_sensor8_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1120,14 +926,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor8_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
+                            android:text="8-11 기본 설정(필수)" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -1140,7 +939,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1161,128 +959,79 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="거리"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="속도"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor9_speed"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor9_distance"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0cm"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="거리"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/main_sensor9_distance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0cm"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="점수"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="점수"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor9_score"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor9_score"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/main_sensor9_input"
-                        android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end">
+
+                    <Button
+                        android:id="@+id/main_sensor9_setting"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor9_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor9_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
+                        android:layout_gravity="end"
+                        android:text="9-10 기본 설정(필수)" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -1294,7 +1043,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1315,128 +1063,115 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="속도"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="속도"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor10_speed"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor10_speed"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0km/h"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="거리"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/main_sensor10_distance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0cm"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="거리"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="점수"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor10_score"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor10_distance"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0cm"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/main_sensor11_input"
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="점수"
+                        android:textAlignment="textStart"
+                        android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/main_sensor10_score"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:padding="5dp"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                        <Button
-                            android:id="@+id/main_sensor10_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal" />
 
-                        <Button
-                            android:id="@+id/main_sensor10_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
+                <EditText
+                    android:id="@+id/main_sensor10_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end">
+
+                    <Button
+                        android:id="@+id/main_sensor10_admit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="적용" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -1448,7 +1183,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -1513,18 +1247,47 @@
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="거리"
+                            android:text="소요시간"
                             android:textAlignment="textStart"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/main_sensor11_distance"
+                            android:id="@+id/main_sensor11_time"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="0cm"
+                            android:text="0ms"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="통과유무"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/main_sensor11_pass"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="X"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -1564,7 +1327,7 @@
                         android:orientation="horizontal" />
 
                     <EditText
-                        android:id="@+id/main_sensor10_input"
+                        android:id="@+id/main_sensor11_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
@@ -1578,18 +1341,97 @@
                         android:gravity="center_vertical|end">
 
                         <Button
-                            android:id="@+id/main_sensor11_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
                             android:id="@+id/main_sensor11_admit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:text="적용" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/main_sensor12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="센서 12"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhiteDark"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="통과유무"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/main_sensor12_score"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="X"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|end">
+
+                        <Button
+                            android:id="@+id/main_sensor12_setting1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="12-13 기본 설정(필수)" />
+
+                        <Button
+                            android:id="@+id/main_sensor12_setting2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="12-17 기본 설정(필수)" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -1638,47 +1480,18 @@
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="속도"
+                            android:text="통과유무"
                             android:textAlignment="textStart"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/main_sensor13_speed"
+                            android:id="@+id/main_sensor13_pass"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="거리"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor13_distance"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0cm"
+                            android:text="X"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -1730,13 +1543,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor13_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
 
                         <Button
                             android:id="@+id/main_sensor13_admit"
@@ -1890,7 +1696,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
+                            android:text="14-15 기본 설정(필수)" />
 
                         <Button
                             android:id="@+id/main_sensor14_admit"
@@ -2044,7 +1850,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
+                            android:text="15-16 기본 설정(필수)" />
 
                         <Button
                             android:id="@+id/main_sensor15_admit"
@@ -2194,13 +2000,6 @@
                         android:gravity="center_vertical|end">
 
                         <Button
-                            android:id="@+id/main_sensor16_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
                             android:id="@+id/main_sensor16_admit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -2241,6 +2040,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -2254,18 +2054,18 @@
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="속도"
+                            android:text="소요시간"
                             android:textAlignment="textStart"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/main_sensor17_speed"
+                            android:id="@+id/main_sensor17_time"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="0km/h"
+                            android:text="0ms"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -2283,18 +2083,18 @@
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="거리"
+                            android:text="통과유무"
                             android:textAlignment="textStart"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/main_sensor17_distance"
+                            android:id="@+id/main_sensor17_pass"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="0cm"
+                            android:text="X"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
@@ -2348,13 +2148,6 @@
                         android:gravity="center_vertical|end">
 
                         <Button
-                            android:id="@+id/main_sensor17_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="기본 설정(필수)" />
-
-                        <Button
                             android:id="@+id/main_sensor17_admit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -2365,5 +2158,107 @@
             </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/main_end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="센서 18"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/main_sensor18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhiteDark"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="소요시간"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/main_sensor18_time"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="0ms"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="점수"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/main_sensor18_score"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="0"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical|end">
+
+                        <Button
+                            android:id="@+id/main_sensor18_end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="종료 및 결과 통계" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
