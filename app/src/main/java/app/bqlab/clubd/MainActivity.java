@@ -6,8 +6,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     int sensor5Speed, sensor5Gap;
     int sensor8Time;
     int sensor9Speed, sensor9Gap;
-    int sensor12Time, sensor12Speed, sensor12Gap;
+    int sensor12Time, sensor12Range;
     int sensor14Speed, sensor14Gap;
     int sensor15Speed, sensor15Gap;
     //objects
@@ -459,46 +462,35 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_sensor12_setting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText input = new EditText(MainActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                input.setSingleLine();
+                final RadioGroup select = new RadioGroup(MainActivity.this);
+                RadioButton r1 = new RadioButton(MainActivity.this);
+                RadioButton r2 = new RadioButton(MainActivity.this);
+                RadioButton r3 = new RadioButton(MainActivity.this);
+                r1.setText("10~30 이내 통과");
+                r2.setText("30~50 이내 통과");
+                r3.setText("50~60 이내 통과");
+                select.addView(r1);
+                select.addView(r2);
+                select.addView(r3);
                 new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("센서12-13 설정")
-                        .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
-                        .setView(input)
+                        .setTitle("센서12-13")
+                        .setMessage("통과 기준이 될 폭을 아래 옵션 중 고르세요.")
+                        .setView(select)
                         .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                             }
                         })
-                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    sensor12Speed = Integer.parseInt(input.getText().toString());
-                                    final EditText input2 = new EditText(MainActivity.this);
-                                    input2.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("센서12-13 설정")
-                                            .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
-                                            .setView(input2)
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    try {
-                                                        sensor12Gap = Integer.parseInt(input2.getText().toString());
-                                                        setSensorNumber += 1;
-                                                        Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
-                                                    } catch (Exception e) {
-                                                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
-                                                    }
-                                                }
-                                            }).show();
-                                    Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
-                                } catch (Exception e) {
-                                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
-                                }
+                                sensor12Range = select.getCheckedRadioButtonId();
+                                Log.d("setSensor12", "sensor12Range: " + String.valueOf(sensor12Range));
+                                if (sensor12Range != -1)
+                                    setSensorNumber += 1;
+                                else
+                                    Toast.makeText(MainActivity.this, "옵션이 선택되지 않았습니다.", Toast.LENGTH_LONG).show();
                             }
                         }).show();
             }
@@ -744,7 +736,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_sensor18_end).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                racing=false;
+                racing = false;
                 mDatabase.child("sensor18").child("pass").setValue(1);
                 showResultDialog();
             }
