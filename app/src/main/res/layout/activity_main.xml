@@ -91,30 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorWhite"
-                        android:padding="5dp"
-                        android:text="속도"
-                        android:textAlignment="textStart"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/main_sensor2_speed"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/colorWhite"
-                        android:padding="5dp"
-                        android:text="0km/h"
-                        android:textAlignment="textEnd"
-                        android:textSize="18sp" />
-                </LinearLayout>
+                    android:orientation="horizontal"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -373,7 +350,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:singleLine="true"
                     android:textSize="16sp" />
 
@@ -620,7 +597,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:textSize="16sp" />
 
@@ -671,35 +648,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="속도"
-                            android:textAlignment="textStart"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:id="@+id/main_sensor7_speed"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/colorWhite"
-                            android:padding="5dp"
-                            android:text="0km/h"
-                            android:textAlignment="textEnd"
-                            android:textSize="18sp" />
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
