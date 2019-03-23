@@ -527,6 +527,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setSensor13() {
+        findViewById(R.id.main_sensor13_admit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    double score = Double.parseDouble(((TextView) findViewById(R.id.main_sensor13_admit)).getText().toString());
+                    double admit = Double.parseDouble(((EditText) findViewById(R.id.main_sensor13_input)).getText().toString());
+                    if (admit >= 0.5 && admit <= 1.2) {
+                        score = score * admit;
+                        String scoreAdmit = String.valueOf(score) + "km/h";
+                        ((TextView) findViewById(R.id.main_sensor13_score)).setText(scoreAdmit);
+                        Toast.makeText(MainActivity.this, "점수가 반영되었습니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
 
     private void setupFirebase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
