@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     int sensor8Time;
     int sensor9Speed, sensor9Gap;
     int sensor12Time, sensor12Speed, sensor12Gap;
+    int sensor14Speed, sensor14Gap;
+    int sensor15Speed, sensor15Gap;
     //objects
     DatabaseReference mDatabase;
 
@@ -55,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         setSensor10();
         setSensor11();
         setSensor12();
+        setSensor13();
+        setSensor14();
+        setSensor15();
+        setSensor16();
+        setSensor17();
+        setSensor18();
     }
 
     private void setSensor1() {
@@ -549,6 +557,199 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setSensor14() {
+        findViewById(R.id.main_sensor14_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText input = new EditText(MainActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setSingleLine();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("센서14-15 설정")
+                        .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
+                        .setView(input)
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    sensor14Speed = Integer.parseInt(input.getText().toString());
+                                    final EditText input2 = new EditText(MainActivity.this);
+                                    input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    new AlertDialog.Builder(MainActivity.this)
+                                            .setTitle("센서14-15 설정")
+                                            .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
+                                            .setView(input2)
+                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    try {
+                                                        sensor14Gap = Integer.parseInt(input2.getText().toString());
+                                                        setSensorNumber += 1;
+                                                        Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
+                                                    } catch (Exception e) {
+                                                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            }).show();
+                                    Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }).show();
+            }
+        });
+        findViewById(R.id.main_sensor14_admit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    double score = Double.parseDouble(((TextView) findViewById(R.id.main_sensor14_admit)).getText().toString());
+                    double admit = Double.parseDouble(((EditText) findViewById(R.id.main_sensor14_input)).getText().toString());
+                    if (admit >= 0.5 && admit <= 1.2) {
+                        score = score * admit;
+                        String scoreAdmit = String.valueOf(score) + "km/h";
+                        ((TextView) findViewById(R.id.main_sensor14_score)).setText(scoreAdmit);
+                        Toast.makeText(MainActivity.this, "점수가 반영되었습니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void setSensor15() {
+        findViewById(R.id.main_sensor15_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText input = new EditText(MainActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setSingleLine();
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("센서15-16 설정")
+                        .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
+                        .setView(input)
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    sensor15Speed = Integer.parseInt(input.getText().toString());
+                                    final EditText input2 = new EditText(MainActivity.this);
+                                    input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    new AlertDialog.Builder(MainActivity.this)
+                                            .setTitle("센서15-16 설정")
+                                            .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
+                                            .setView(input2)
+                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    try {
+                                                        sensor15Gap = Integer.parseInt(input2.getText().toString());
+                                                        setSensorNumber += 1;
+                                                        Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
+                                                    } catch (Exception e) {
+                                                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            }).show();
+                                    Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
+                                } catch (Exception e) {
+                                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }).show();
+            }
+        });
+        findViewById(R.id.main_sensor15_admit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    double score = Double.parseDouble(((TextView) findViewById(R.id.main_sensor15_admit)).getText().toString());
+                    double admit = Double.parseDouble(((EditText) findViewById(R.id.main_sensor15_input)).getText().toString());
+                    if (admit >= 0.5 && admit <= 1.2) {
+                        score = score * admit;
+                        String scoreAdmit = String.valueOf(score) + "km/h";
+                        ((TextView) findViewById(R.id.main_sensor15_score)).setText(scoreAdmit);
+                        Toast.makeText(MainActivity.this, "점수가 반영되었습니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+
+    private void setSensor16() {
+        findViewById(R.id.main_sensor16_admit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    double score = Double.parseDouble(((TextView) findViewById(R.id.main_sensor16_score)).getText().toString());
+                    double admit = Double.parseDouble(((EditText) findViewById(R.id.main_sensor16_input)).getText().toString());
+                    if (admit >= 0.5 && admit <= 1.2) {
+                        score = score * admit;
+                        String scoreAdmit = String.valueOf(score) + "km/h";
+                        ((TextView) findViewById(R.id.main_sensor16_score)).setText(scoreAdmit);
+                        Toast.makeText(MainActivity.this, "점수가 반영되었습니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void setSensor17() {
+        findViewById(R.id.main_sensor17_admit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    double score = Double.parseDouble(((TextView) findViewById(R.id.main_sensor17_admit)).getText().toString());
+                    double admit = Double.parseDouble(((EditText) findViewById(R.id.main_sensor17_input)).getText().toString());
+                    if (admit >= 0.5 && admit <= 1.2) {
+                        score = score * admit;
+                        String scoreAdmit = String.valueOf(score) + "km/h";
+                        ((TextView) findViewById(R.id.main_sensor17_score)).setText(scoreAdmit);
+                        Toast.makeText(MainActivity.this, "점수가 반영되었습니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "입력이 올바르지 않습니다.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void setSensor18() {
+        findViewById(R.id.main_sensor18_end).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                racing=false;
+                mDatabase.child("sensor18").child("pass").setValue(1);
+                showResultDialog();
+            }
+        });
+    }
 
     private void setupFirebase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -563,6 +764,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showResultDialog() {
+
     }
 
     private boolean isAllSet() {
