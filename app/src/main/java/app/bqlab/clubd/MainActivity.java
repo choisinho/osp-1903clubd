@@ -257,9 +257,11 @@ public class MainActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
                     lastPassedSensor = 12;
                 } else if (isSensorPassed("sensor13")) {
-                    ((TextView) findViewById(R.id.main_sensor7_pass)).setText("O");
-                    ((TextView) findViewById(R.id.main_sensor7_pass)).setText(String.valueOf(score));
-                    lastPassedSensor = 7;
+                    ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
+                    ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(3));
+                    lastPassedSensor = 13;
+                } else if (isSensorPassed("sensor14")) {
+
                 }
             }
 
