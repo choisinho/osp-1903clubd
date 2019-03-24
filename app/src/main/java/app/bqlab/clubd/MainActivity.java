@@ -68,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
         setSensor18();
     }
 
+    private void processData() {
+
+    }
+
+    private void showResultDialog() {
+
+    }
+
     private void setSensor1() {
         findViewById(R.id.main_sensor1_setting).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -758,11 +766,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showResultDialog() {
-
-    }
-
     private boolean isAllSet() {
-        return setSensorNumber == 18;
+        return setSensorNumber == 10;
     }
 }
