@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
     int sensor15Speed, sensor15Gap;
     //objects
     DatabaseReference mDatabase;
+    DataSnapshot mSnapshot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         InternetCheck.showDialogAfterCheck(this);
-        setupFirebase();
+        setupDatabase();
         init();
     }
 
@@ -68,7 +69,28 @@ public class MainActivity extends AppCompatActivity {
         setSensor18();
     }
 
-    private void processData() {
+    private void setupDatabase() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mSnapshot = dataSnapshot;
+                if (isSensorPassed("sensor1")) {
+
+                }
+                if (isSensorPassed("sensor2")) {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void resetAllSensors() {
 
     }
 
@@ -123,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                             .setPositiveButton("시작", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    resetAllSensors();
                                     mDatabase.child("sensor1").child("pass").setValue(1);
                                     new Thread(new Runnable() {
                                         @Override
@@ -751,19 +774,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupFirebase() {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+    private DataSnapshot getDatabase(String name) {
+        return mSnapshot.child(name);
+    }
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    private boolean isSensorPassed(String name) {
+        return (int)getDatabase(name).child("pass").getValue() != 0;
     }
 
     private boolean isAllSet() {
