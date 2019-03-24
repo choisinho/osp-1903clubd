@@ -765,16 +765,4 @@ public class MainActivity extends AppCompatActivity {
     private boolean isAllSet() {
         return setSensorNumber == 18;
     }
-
-    private int getSpeed(int time, int distance) {
-        return distance / time;
-    }
-
-    private int getTime(int speed, int distance) {
-        return distance / speed;
-    }
-
-    private int getDistance(int speed, int time) {
-        return speed * time;
-    }
 }
