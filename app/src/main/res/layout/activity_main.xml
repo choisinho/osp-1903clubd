@@ -1287,7 +1287,7 @@
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/main_sensor12_score"
+                            android:id="@+id/main_sensor12_pass"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

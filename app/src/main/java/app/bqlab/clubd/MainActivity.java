@@ -20,21 +20,28 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
 
     //variables
-    int score;
     boolean racing;
-    int setSensorNumber;
-    int time, maxTime;
-    int sensor2Time;
-    int sensor3Speed, sensor3Gap;
-    int sensor5Speed, sensor5Gap;
-    int sensor8Time;
-    int sensor9Speed, sensor9Gap;
-    int sensor12Time, sensor12Range;
-    int sensor14Speed, sensor14Gap;
-    int sensor15Speed, sensor15Gap;
+    long totalTime, totalScore;
+    long setSensorNumber;
+    long sensor1SetTime;
+    long sensor2SetTime, sensor2Time;
+    long sensor3SetSpeed, sensor3SetGap, sensor3Time, sensor3Distance;
+    long sensor4Distance;
+    long sensor5SetSpeed, sensor5SetGap, sensor5Time, sensor5Distance;
+    long sensor6Distance;
+    long sensor8SetTime, sensor8Time;
+    long sensor9SetSpeed, sensor9SetGap, sensor9Time, sensor9Distance;
+    long sensor10Distance;
+    long sensor12SetTime, sensor12Range, sensor12Time;
+    long sensor14SetSpeed, sensor14SetGap;
+    long sensor15SetSpeed, sensor15SetGap;
+    long sensor18Time;
+    long lastPassedSensor;
     //objects
     DatabaseReference mDatabase;
     DataSnapshot mSnapshot;
@@ -76,10 +83,183 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mSnapshot = dataSnapshot;
                 if (isSensorPassed("sensor1")) {
-
-                }
-                if (isSensorPassed("sensor2")) {
-
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while (racing) {
+                                totalTime += 1;
+                            }
+                        }
+                    }).start();
+                    lastPassedSensor = 1;
+                } else if (isSensorPassed("sensor2")) {
+                    sensor2Time = totalTime;
+                    ((TextView) findViewById(R.id.main_sensor2_pass)).setText("O");
+                    lastPassedSensor = 2;
+                } else if (isSensorPassed("sensor3")) {
+                    sensor3Time = totalTime;
+                    sensor3Distance = (int) getDatabase("sensor3").child("distance").getValue();
+                    String text = String.valueOf(sensor3Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor3_distance)).setText(text);
+                    lastPassedSensor = 3;
+                } else if (isSensorPassed("sensor4")) {
+                    //calculate distance, time, speed
+                    long score = 0;
+                    long time = totalTime - sensor3Time;
+                    double speed = ((double) sensor3SetGap / 100000d) / ((double) time / 1000000d);
+                    sensor4Distance = (int) getDatabase("sensor4").child("distance").getValue();
+                    //calculate score
+                    if (sensor4Distance < 10)
+                        score += 7;
+                    else if (sensor4Distance < 15)
+                        score += 6;
+                    else if (sensor4Distance < 20)
+                        score += 5;
+                    else
+                        score += 1;
+                    if (speed < (sensor3SetSpeed / 2d)) {
+                        double speedGap = (sensor3SetSpeed / 2d) - speed;
+                        score -= (long) (speedGap / 2d);
+                    } else if (speed > (sensor3SetSpeed / 2d)) {
+                        double speedGap = speed - (sensor3SetSpeed / 2d);
+                        score += (long) (speedGap / 2d);
+                    }
+                    if (score <= 0)
+                        score = 1;
+                    //visualize speed, distance, score
+                    String speedText = String.valueOf(speed) + "km/h";
+                    String distanceText = String.valueOf(sensor4Distance) + "cm";
+                    String scoreText = String.valueOf(score);
+                    ((TextView) findViewById(R.id.main_sensor4_speed)).setText(speedText);
+                    ((TextView) findViewById(R.id.main_sensor4_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor4_score)).setText(scoreText);
+                    //finish
+                    lastPassedSensor = 4;
+                } else if (isSensorPassed("sensor5")) {
+                    sensor5Time = totalTime;
+                    sensor5Distance = (int) getDatabase("sensor5").child("distance").getValue();
+                    String text = String.valueOf(sensor5Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor5_distance)).setText(text);
+                    lastPassedSensor = 5;
+                } else if (isSensorPassed("sensor6")) {
+                    //calculate distance, time, speed
+                    long score = 0;
+                    long time = totalTime - sensor5Time;
+                    double speed = ((double) sensor5SetGap / 100000d) / ((double) time / 1000000d);
+                    sensor6Distance = (int) getDatabase("sensor6").child("distance").getValue();
+                    //calculate score
+                    if (sensor6Distance < 10)
+                        score += 7;
+                    else if (sensor6Distance < 15)
+                        score += 6;
+                    else if (sensor6Distance < 20)
+                        score += 5;
+                    else
+                        score += 1;
+                    if (speed < (sensor5SetSpeed / 2d)) {
+                        double speedGap = (sensor5SetSpeed / 2d) - speed;
+                        score -= (long) (speedGap / 2d);
+                    } else if (speed > (sensor5SetSpeed / 2d)) {
+                        double speedGap = speed - (sensor5SetSpeed / 2d);
+                        score += (long) (speedGap / 2d);
+                    }
+                    if (score <= 0)
+                        score = 1;
+                    //visualize speed, distance, score
+                    String speedText = String.valueOf(speed) + "km/h";
+                    String distanceText = String.valueOf(sensor6Distance) + "cm";
+                    String scoreText = String.valueOf(score);
+                    ((TextView) findViewById(R.id.main_sensor6_speed)).setText(speedText);
+                    ((TextView) findViewById(R.id.main_sensor6_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor6_score)).setText(scoreText);
+                    //finish
+                    lastPassedSensor = 6;
+                } else if (isSensorPassed("sensor7")) {
+                    //set about time and pass
+                    long time = totalTime - sensor2Time;
+                    String timeText = String.valueOf(time) + "ms";
+                    ((TextView) findViewById(R.id.main_sensor7_time)).setText(timeText);
+                    ((TextView) findViewById(R.id.main_sensor7_pass)).setText("O");
+                    // set about score
+                    long score = 0;
+                    if (time < (sensor2SetTime / 2)) {
+                        long timeGap = (sensor2SetTime / 2) - time;
+                        score -= timeGap / 500;
+                    } else if (time > (sensor2SetTime / 2)) {
+                        long timeGap = time - (sensor2SetTime / 2);
+                        score += timeGap / 500;
+                    }
+                    ((TextView) findViewById(R.id.main_sensor7_score)).setText(String.valueOf(score));
+                    lastPassedSensor = 7;
+                } else if (isSensorPassed("sensor8")) {
+                    sensor8Time = totalTime;
+                    ((TextView) findViewById(R.id.main_sensor8_pass)).setText("O");
+                    lastPassedSensor = 8;
+                } else if (isSensorPassed("sensor9")) {
+                    sensor9Time = totalTime;
+                    sensor9Distance = (int) getDatabase("sensor9").child("distance").getValue();
+                    String text = String.valueOf(sensor9Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor3_distance)).setText(text);
+                    lastPassedSensor = 9;
+                } else if (isSensorPassed("sensor10")) {
+                    //calculate distance, time, speed
+                    long score = 0;
+                    long time = totalTime - sensor9Time;
+                    double speed = ((double) sensor9SetGap / 100000d) / ((double) time / 1000000d);
+                    sensor10Distance = (int) getDatabase("sensor10").child("distance").getValue();
+                    //calculate score
+                    if (sensor10Distance < 10)
+                        score += 7;
+                    else if (sensor10Distance < 15)
+                        score += 6;
+                    else if (sensor10Distance < 20)
+                        score += 5;
+                    else
+                        score += 1;
+                    if (speed < (sensor9SetSpeed / 2d)) {
+                        double speedGap = (sensor9SetSpeed / 2d) - speed;
+                        score -= (long) (speedGap / 2d);
+                    } else if (speed > (sensor9SetSpeed / 2d)) {
+                        double speedGap = speed - (sensor9SetSpeed / 2d);
+                        score += (long) (speedGap / 2d);
+                    }
+                    if (score <= 0)
+                        score = 1;
+                    //visualize speed, distance, score
+                    String speedText = String.valueOf(speed) + "km/h";
+                    String distanceText = String.valueOf(sensor10Distance) + "cm";
+                    String scoreText = String.valueOf(score);
+                    ((TextView) findViewById(R.id.main_sensor10_speed)).setText(speedText);
+                    ((TextView) findViewById(R.id.main_sensor10_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor10_score)).setText(scoreText);
+                    //finish
+                    lastPassedSensor = 10;
+                } else if (isSensorPassed("sensor11")) {
+                    //set about time and pass
+                    long time = totalTime - sensor8Time;
+                    String timeText = String.valueOf(time) + "ms";
+                    ((TextView) findViewById(R.id.main_sensor11_time)).setText(timeText);
+                    ((TextView) findViewById(R.id.main_sensor11_pass)).setText("O");
+                    // set about score
+                    long score = 0;
+                    if (time < (sensor8SetTime / 2)) {
+                        long timeGap = (sensor8SetTime / 2) - time;
+                        score -= timeGap / 500;
+                    } else if (time > (sensor8SetTime / 2)) {
+                        long timeGap = time - (sensor8SetTime / 2);
+                        score += timeGap / 500;
+                    }
+                    ((TextView) findViewById(R.id.main_sensor11_score)).setText(String.valueOf(score));
+                    lastPassedSensor = 11;
+                } else if (isSensorPassed("sensor12")) {
+                    //set for 12-17 button
+                    sensor12Time = totalTime;
+                    ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
+                    lastPassedSensor = 12;
+                } else if (isSensorPassed("sensor13")) {
+                    ((TextView) findViewById(R.id.main_sensor7_pass)).setText("O");
+                    ((TextView) findViewById(R.id.main_sensor7_pass)).setText(String.valueOf(score));
+                    lastPassedSensor = 7;
                 }
             }
 
@@ -119,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    maxTime = Integer.parseInt(input.getText().toString());
+                                    sensor1SetTime = Integer.parseInt(input.getText().toString());
                                     setSensorNumber += 1;
                                     Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                 } catch (Exception e) {
@@ -146,15 +326,8 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     resetAllSensors();
-                                    mDatabase.child("sensor1").child("pass").setValue(1);
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            while (racing) {
-                                                time += 1;
-                                            }
-                                        }
-                                    }).start();
+                                    mDatabase.child("sensor1").child("start").setValue(1);
+                                    Toast.makeText(MainActivity.this, "지금부터 측정이 시작됩니다!", Toast.LENGTH_LONG).show();
                                 }
                             }).show();
                 } else
@@ -184,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor2Time = Integer.parseInt(input.getText().toString());
+                                    sensor2SetTime = Integer.parseInt(input.getText().toString());
                                     setSensorNumber += 1;
                                     Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                 } catch (Exception e) {
@@ -217,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor3Speed = Integer.parseInt(input.getText().toString());
+                                    sensor3SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
                                     new AlertDialog.Builder(MainActivity.this)
@@ -228,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     try {
-                                                        sensor3Gap = Integer.parseInt(input2.getText().toString());
+                                                        sensor3SetGap = Integer.parseInt(input2.getText().toString());
                                                         setSensorNumber += 1;
                                                         Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                                     } catch (Exception e) {
@@ -289,7 +462,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor5Speed = Integer.parseInt(input.getText().toString());
+                                    sensor5SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
                                     new AlertDialog.Builder(MainActivity.this)
@@ -300,7 +473,7 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     try {
-                                                        sensor5Gap = Integer.parseInt(input2.getText().toString());
+                                                        sensor5SetGap = Integer.parseInt(input2.getText().toString());
                                                         setSensorNumber += 1;
                                                         Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                                     } catch (Exception e) {
@@ -383,7 +556,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor8Time = Integer.parseInt(input.getText().toString());
+                                    sensor8SetTime = Integer.parseInt(input.getText().toString());
                                     setSensorNumber += 1;
                                     Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                 } catch (Exception e) {
@@ -416,7 +589,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor9Speed = Integer.parseInt(input.getText().toString());
+                                    sensor9SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
                                     new AlertDialog.Builder(MainActivity.this)
@@ -427,7 +600,7 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     try {
-                                                        sensor9Gap = Integer.parseInt(input2.getText().toString());
+                                                        sensor9SetGap = Integer.parseInt(input2.getText().toString());
                                                         setSensorNumber += 1;
                                                         Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                                     } catch (Exception e) {
@@ -546,7 +719,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor12Time = Integer.parseInt(input.getText().toString());
+                                    sensor12SetTime = Integer.parseInt(input.getText().toString());
                                     setSensorNumber += 1;
                                     Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                 } catch (Exception e) {
@@ -601,7 +774,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor14Speed = Integer.parseInt(input.getText().toString());
+                                    sensor14SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
                                     new AlertDialog.Builder(MainActivity.this)
@@ -612,7 +785,7 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     try {
-                                                        sensor14Gap = Integer.parseInt(input2.getText().toString());
+                                                        sensor14SetGap = Integer.parseInt(input2.getText().toString());
                                                         setSensorNumber += 1;
                                                         Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                                     } catch (Exception e) {
@@ -670,7 +843,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
-                                    sensor15Speed = Integer.parseInt(input.getText().toString());
+                                    sensor15SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
                                     new AlertDialog.Builder(MainActivity.this)
@@ -681,7 +854,7 @@ public class MainActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
                                                     try {
-                                                        sensor15Gap = Integer.parseInt(input2.getText().toString());
+                                                        sensor15SetGap = Integer.parseInt(input2.getText().toString());
                                                         setSensorNumber += 1;
                                                         Toast.makeText(MainActivity.this, "설정되었습니다.", Toast.LENGTH_LONG).show();
                                                     } catch (Exception e) {
@@ -779,7 +952,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isSensorPassed(String name) {
-        return (int)getDatabase(name).child("pass").getValue() != 0;
+        int i = Integer.parseInt(name.replace("sensor", ""));
+        return ((int) getDatabase(name).child("pass").getValue() != 0) && (i == (lastPassedSensor + 1));
     }
 
     private boolean isAllSet() {
