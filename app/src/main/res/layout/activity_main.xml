@@ -91,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"/>
+                    android:orientation="horizontal" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -345,27 +345,6 @@
                         android:textSize="18sp" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/main_sensor4_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                    android:inputType="numberDecimal"
-                    android:singleLine="true"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|end">
-
-                    <Button
-                        android:id="@+id/main_sensor4_admit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:text="적용" />
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -591,31 +570,8 @@
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/main_sensor6_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="numberDecimal"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor6_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
 
@@ -740,28 +696,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
-
-                    <EditText
-                        android:id="@+id/main_sensor7_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor7_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -1064,34 +998,6 @@
                         android:textAlignment="textEnd"
                         android:textSize="18sp" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal" />
-
-                <EditText
-                    android:id="@+id/main_sensor10_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:textSize="16sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical|end">
-
-                    <Button
-                        android:id="@+id/main_sensor10_admit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:text="적용" />
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -1215,28 +1121,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
-
-                    <EditText
-                        android:id="@+id/main_sensor11_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor11_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -1363,15 +1247,6 @@
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
 
-                    <EditText
-                        android:id="@+id/main_sensor12_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1390,13 +1265,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:text="12-17 기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor12_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -1524,15 +1392,6 @@
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
 
-                    <EditText
-                        android:id="@+id/main_sensor13_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1544,13 +1403,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:text="13-14 기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor13_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -1678,15 +1530,6 @@
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
 
-                    <EditText
-                        android:id="@+id/main_sensor14_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1698,13 +1541,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:text="14-15 기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor14_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -1832,15 +1668,6 @@
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
 
-                    <EditText
-                        android:id="@+id/main_sensor15_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -1852,13 +1679,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:text="15-16 기본 설정(필수)" />
-
-                        <Button
-                            android:id="@+id/main_sensor15_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -1985,28 +1805,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
-
-                    <EditText
-                        android:id="@+id/main_sensor16_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor16_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -2127,34 +1925,6 @@
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="horizontal" />
-
-                    <EditText
-                        android:id="@+id/main_sensor17_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
-                        android:inputType="number"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical|end">
-
-                        <Button
-                            android:id="@+id/main_sensor17_admit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="적용" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -2246,6 +2016,7 @@
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
