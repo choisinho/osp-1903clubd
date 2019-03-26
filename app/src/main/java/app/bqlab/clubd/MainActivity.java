@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     //variables
-    boolean racing;
+    boolean racing, dev;
     long totalTime, totalScore;
     long setSensorNumber;
     long sensor1SetTime;
@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
+        dev = true;
         setSensor1();
         setSensor2();
         setSensor3();
@@ -115,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
                     //calculate distance, time, speed
                     long score = 0;
                     long time = totalTime - sensor3Time;
-                    double speed = ((double) sensor3SetGap / 100000d) / ((double) time / 360000d);
+                    long minute = time / 60000;
+                    long speed = (sensor3SetGap / 100000) / (minute / 60);
+                    Log.d("time", String.valueOf(minute / 60));
+                    Log.d("gap", String.valueOf(sensor3SetGap / 100000));
                     sensor4Distance = (long) getDatabase("sensor4").child("distance").getValue();
                     //calculate score
                     if (sensor4Distance < 10)
@@ -164,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                     //calculate distance, time, speed
                     long score = 0;
                     long time = totalTime - sensor5Time;
-                    double speed = ((double) sensor5SetGap / 100000d) / ((double) time / 360000d);
+                    double speed = ((double) sensor5SetGap / 100000d) / ((double) time / 3600000d);
                     sensor6Distance = (long) getDatabase("sensor6").child("distance").getValue();
                     //calculate score
                     if (sensor6Distance < 10)
@@ -234,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                     //calculate distance, time, speed
                     long score = 0;
                     long time = totalTime - sensor9Time;
-                    double speed = ((double) sensor9SetGap / 100000d) / ((double) time / 360000d);
+                    double speed = ((double) sensor9SetGap / 100000d) / ((double) time / 3600000d);
                     sensor10Distance = (long) getDatabase("sensor10").child("distance").getValue();
                     //calculate score
                     if (sensor10Distance < 10)
@@ -318,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
                     long score = 0;
                     sensor14Time = totalTime;
                     long time = sensor14Time - sensor13Time;
-                    double speed = ((double) sensor13SetGap / 100000d) / ((double) time / 360000d);
+                    double speed = ((double) sensor13SetGap / 100000d) / ((double) time / 3600000d);
                     sensor14Distance = (long) getDatabase("sensor14").child("distance").getValue();
                     //calculate score
                     if (sensor14Distance < 10)
@@ -352,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
                     long score = 0;
                     sensor15Time = totalTime;
                     long time = sensor15Time - sensor14Time;
-                    double speed = ((double) sensor14SetGap / 100000d) / ((double) time / 360000d);
+                    double speed = ((double) sensor14SetGap / 100000d) / ((double) time / 3600000d);
                     sensor15Distance = (long) getDatabase("sensor15").child("distance").getValue();
                     //calculate score
                     if (sensor15Distance < 10)
@@ -385,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                     //calculate distance, time, speed
                     long score = 0;
                     long time = totalTime - sensor15Time;
-                    double speed = ((double) sensor15SetGap / 100000d) / ((double) time / 360000d);
+                    double speed = ((double) sensor15SetGap / 100000d) / ((double) time / 3600000d);
                     sensor16Distance = (long) getDatabase("sensor16").child("distance").getValue();
                     //calculate score
                     if (sensor16Distance < 10)
@@ -533,6 +537,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("600000");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서1-18 설정")
                         .setMessage("만점 기준이 될 시간을 ms 단위로 입력하세요.")
@@ -603,6 +609,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("60000");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서2-7 설정")
                         .setMessage("만점 기준이 될 시간을 ms 단위로 입력하세요.")
@@ -637,6 +645,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("10");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서3-4 설정")
                         .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
@@ -654,6 +664,9 @@ public class MainActivity extends AppCompatActivity {
                                     sensor3SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    input2.setSingleLine();
+                                    if (dev)
+                                        input2.setText("20");
                                     new AlertDialog.Builder(MainActivity.this)
                                             .setTitle("센서3-4 설정")
                                             .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
@@ -710,6 +723,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("10");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서5-6 설정")
                         .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
@@ -727,6 +742,9 @@ public class MainActivity extends AppCompatActivity {
                                     sensor5SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    input2.setSingleLine();
+                                    if (dev)
+                                        input2.setText("20");
                                     new AlertDialog.Builder(MainActivity.this)
                                             .setTitle("센서5-6 설정")
                                             .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
@@ -805,6 +823,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("60000");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서8-11 설정")
                         .setMessage("만점 기준이 될 시간을 ms 단위로 입력하세요.")
@@ -839,6 +859,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("10");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서9-10 설정")
                         .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
@@ -856,6 +878,9 @@ public class MainActivity extends AppCompatActivity {
                                     sensor9SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    input2.setSingleLine();
+                                    if (dev)
+                                        input2.setText("20");
                                     new AlertDialog.Builder(MainActivity.this)
                                             .setTitle("센서9-10 설정")
                                             .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
@@ -941,6 +966,8 @@ public class MainActivity extends AppCompatActivity {
                 select.addView(r1);
                 select.addView(r2);
                 select.addView(r3);
+                if (dev)
+                    r1.toggle();
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서12-13")
                         .setMessage("통과 기준이 될 폭을 아래 옵션 중 고르세요.")
@@ -971,6 +998,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("60000");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서12-17 설정")
                         .setMessage("만점 기준이 될 시간을 ms 단위로 입력하세요.")
@@ -1005,6 +1034,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("10");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서13-14 설정")
                         .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
@@ -1022,6 +1053,8 @@ public class MainActivity extends AppCompatActivity {
                                     sensor13SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    if (dev)
+                                        input2.setText("20");
                                     new AlertDialog.Builder(MainActivity.this)
                                             .setTitle("센서13-14 설정")
                                             .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
@@ -1075,6 +1108,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("10");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서14-15 설정")
                         .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
@@ -1092,6 +1127,8 @@ public class MainActivity extends AppCompatActivity {
                                     sensor14SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    if (dev)
+                                        input2.setText("20");
                                     new AlertDialog.Builder(MainActivity.this)
                                             .setTitle("센서14-15 설정")
                                             .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
@@ -1145,6 +1182,8 @@ public class MainActivity extends AppCompatActivity {
                 final EditText input = new EditText(MainActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER);
                 input.setSingleLine();
+                if (dev)
+                    input.setText("10");
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("센서15-16 설정")
                         .setMessage("만점 기준이 될 속도를 km/h 단위로 입력하세요.")
@@ -1162,6 +1201,8 @@ public class MainActivity extends AppCompatActivity {
                                     sensor15SetSpeed = Integer.parseInt(input.getText().toString());
                                     final EditText input2 = new EditText(MainActivity.this);
                                     input2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                    if (dev)
+                                        input2.setText("20");
                                     new AlertDialog.Builder(MainActivity.this)
                                             .setTitle("센서15-16 설정")
                                             .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
