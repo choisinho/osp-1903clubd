@@ -1273,6 +1273,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -1296,6 +1297,64 @@
                             android:text="X"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="거리"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/main_sensor12_distance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="0cm"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="점수"
+                            android:textAlignment="textStart"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/main_sensor12_score"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorWhite"
+                            android:padding="5dp"
+                            android:text="0"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -1303,6 +1362,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:orientation="horizontal" />
+
+                    <EditText
+                        android:id="@+id/main_sensor12_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="0.5와 1.2 사이의 심사위원 점수를 입력하세요."
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1322,6 +1390,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:text="12-17 기본 설정(필수)" />
+
+                        <Button
+                            android:id="@+id/main_sensor12_admit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:text="적용" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
