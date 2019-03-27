@@ -7,7 +7,8 @@ import android.util.Log;
 
 public class TimerService extends Service {
 
-    public static int time = 0;
+    public static boolean racing;
+    public static int time;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -20,8 +21,10 @@ public class TimerService extends Service {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1);
-                    time += 1;
+                    while(racing) {
+                        Thread.sleep(1);
+                        time += 1;
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
