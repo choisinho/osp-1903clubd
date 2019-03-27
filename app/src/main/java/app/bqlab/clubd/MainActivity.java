@@ -24,12 +24,48 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     //variables
-    boolean devMode;
+    int sensor1Time = 0;
+    int sensor2Time = 0;
+    int sensor3Time = 0;
+    int sensor4Time = 0;
+    int sensor5Time = 0;
+    int sensor6Time = 0;
+    int sensor7Time = 0;
+    int sensor8Time = 0;
+    int sensor9Time = 0;
+    int sensor10Time = 0;
+    int sensor11Time = 0;
+    int sensor12Time = 0;
+    int sensor13Time = 0;
+    int sensor14Time = 0;
+    int sensor15Time = 0;
+    int sensor16Time = 0;
+    int sensor17Time = 0;
+    int sensor1Distance = 0;
+    int sensor2Distance = 0;
+    int sensor3Distance = 0;
+    int sensor4Distance = 0;
+    int sensor5Distance = 0;
+    int sensor6Distance = 0;
+    int sensor7Distance = 0;
+    int sensor8Distance = 0;
+    int sensor9Distance = 0;
+    int sensor10Distance = 0;
+    int sensor11Distance = 0;
+    int sensor12Distance = 0;
+    int sensor13Distance = 0;
+    int sensor14Distance = 0;
+    int sensor15Distance = 0;
+    int sensor16Distance = 0;
+    int sensor17Distance = 0;
+    boolean devMode, racing;
     boolean[] setSensors = new boolean[3]; //test
+    boolean[] passedSensors = new boolean[4]; //test
     //objects
     SharedPreferences mPreference;
     DatabaseReference mDatabase;
@@ -41,13 +77,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
         setupDatabase();
-        startService(new Intent(this, DeleteService.class));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
+        initializeData();
     }
 
     private void init() {
@@ -71,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         return mPreference.getString(key, "");
     }
 
-    private long getPreferenceToLong(String key) {
-        return Long.parseLong(Objects.requireNonNull(mPreference.getString(key, "0")));
+    private int getPreferenceToInteger(String key) {
+        return Integer.parseInt(Objects.requireNonNull(mPreference.getString(key, "0")));
     }
 
     private double getPreferenceToDouble(String key) {
@@ -120,18 +150,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private double getSpeedInKmPerH(double ms, double cm) {
-        double km = cm / 100000d;
-        Log.d("km", String.valueOf(km));
-        double h = ms / 3600000d;
-        Log.d("h", String.valueOf(h));
-        return km / h;
+        return (cm * 36) / ms;
     }
 
     private void checkDeveloper() {
         if (devMode) {
             setPreference("sensor1SetTime", "600000");
             setPreference("sensor2SetTime", "60000");
-            setPreference("sensor3SetGap", "20");
+            setPreference("sensor3SetGap", "200");
             setPreference("sensor3SetSpeed", "10");
         }
     }
@@ -141,33 +167,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mSnapshot = dataSnapshot;
-                if (isPassed("sensor2")) {
+                if (isPassed("sensor1") && !passedSensors[0]) {
+                    passedSensors[0] = true;
+                } else if (isPassed("sensor2") && !passedSensors[1]) {
                     ((TextView) findViewById(R.id.main_sensor2_pass)).setText("O");
-                }
-                if (isPassed("sensor3")) {
-                    setPreference("sensor3Time", String.valueOf(getPreferenceToLong("time")));
-                    Log.d("3time", String.valueOf(getPreferenceToDouble("sensor3Time")));
-                    setPreference("sensor3Distance", String.valueOf(dataSnapshot.child("sensor3").child("distance").getValue()));
-                    ((TextView) findViewById(R.id.main_sensor3_distance)).setText(getPreference("sensor3Distance"));
-                    ((TextView) findViewById(R.id.main_sensor3_score)).setText(String.valueOf(getScoreByDistance((int) getPreferenceToLong("sensor3Distance"))));
-                }
-                if (isPassed("sensor4")) {
-                    Log.d("time", String.valueOf(getPreferenceToDouble("time")));
-                    Log.d("3time", String.valueOf(getPreferenceToDouble("sensor3Time")));
-                    double time = getPreferenceToDouble("time") - getPreferenceToDouble("sensor3Time");
-                    Log.d("minustime", String.valueOf(time));
+                    passedSensors[1] = true;
+                } else if (isPassed("sensor3") && !passedSensors[2]) {
+                    sensor3Time = TimerService.time;
+                    Log.d("자살하고싶다", String.valueOf(sensor3Time));
+                    sensor3Distance = (int) dataSnapshot.child("sensor3").child("distance").getValue();
+                    ((TextView) findViewById(R.id.main_sensor3_distance)).setText(sensor3Distance);
+                    ((TextView) findViewById(R.id.main_sensor3_score)).setText(String.valueOf(getScoreByDistance(sensor3Distance)));
+                    passedSensors[2] = true;
+                } else if (isPassed("sensor4") && !passedSensors[3]) {
+                    double time = TimerService.time - sensor3Time;
+                    Log.d("time", String.valueOf(TimerService.time));
+                    Log.d("sensor3Time", String.valueOf(sensor3Time));
+                    Log.d("thistime", String.valueOf(TimerService.time - sensor3Time));
                     double gap = getPreferenceToDouble("sensor3SetGap");
                     double speed = getSpeedInKmPerH(time, gap);
-                    int setSpeed = (int) getPreferenceToLong("sensor3SetSpeed");
-                    Log.d("time", String.valueOf(time));
-                    Log.d("gap", String.valueOf(gap));
-                    Log.d("speed", String.valueOf(speed));
-                    Log.d("setSpeed", String.valueOf(setSpeed));
+                    int setSpeed = getPreferenceToInteger("sensor3SetSpeed");
                     String text = String.valueOf((int) speed) + "km/h";
-                    setPreference("sensor4Distance", String.valueOf(dataSnapshot.child("sensor4").child("distance").getValue()));
-                    ((TextView) findViewById(R.id.main_sensor4_distance)).setText(getPreference("sensor4Distance"));
+                    sensor4Distance = (int) dataSnapshot.child("sensor4").child("distance").getValue();
+                    ((TextView) findViewById(R.id.main_sensor4_distance)).setText(sensor4Distance);
                     ((TextView) findViewById(R.id.main_sensor4_speed)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor4_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 7)));
+                    passedSensors[3] = true;
                 }
             }
 
@@ -176,6 +201,46 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private void initializeData() {
+        mPreference.edit().putString("time", "0").apply();
+        new AsyncTask<Void, Void, Void>() {
+            AlertDialog dialog;
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                dialog.dismiss();
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                ProgressBar progressBar = new ProgressBar(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("데이터를 초기화하는 중입니다..");
+                builder.setView(progressBar);
+                builder.setCancelable(false);
+                dialog = builder.show();
+                racing = false;
+                resetLayouts();
+                resetDatabase();
+                if (ServiceCheck.isRunning(MainActivity.this, TimerService.class.getName()))
+                    stopService(new Intent(MainActivity.this, TimerService.class));
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
     }
 
     private void resetDatabase() {
@@ -215,16 +280,6 @@ public class MainActivity extends AppCompatActivity {
                     mDatabase.child("sensor17").child("distance").setValue(0);
                     mDatabase.child("sensor17").child("pass").setValue(0);
                     mDatabase.child("sensor18").child("pass").setValue(0);
-                    mPreference.edit().remove("time").apply();
-                    mPreference.edit().remove("sensor1SetTime").apply();
-                    mPreference.edit().remove("sensor2SetTime").apply();
-                    mPreference.edit().remove("sensor3SetGap").apply();
-                    mPreference.edit().remove("sensor3SetSpeed").apply();
-                    mPreference.edit().remove("sensor3Time").apply();
-                    mPreference.edit().remove("sensor3Distance").apply();
-                    mPreference.edit().remove("sensor3SetGap").apply();
-                    mPreference.edit().remove("sensor3SetSpeed").apply();
-                    mPreference.edit().remove("sensor4Distance").apply();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (RuntimeException e) {
@@ -293,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isAllSet()) {
-                    if (!getPreferenceToBoolean("racing")) {
+                    if (!racing) {
                         new AlertDialog.Builder(MainActivity.this)
                                 .setTitle("경기 시작")
                                 .setMessage("아래의 버튼을 누르면 측정이 시작됩니다.")
@@ -306,22 +361,9 @@ public class MainActivity extends AppCompatActivity {
                                 .setPositiveButton("경기시작", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        setPreference("racing", "true");
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                while (getPreferenceToBoolean("racing")) {
-                                                    try {
-                                                        Thread.sleep(1);
-                                                        mDatabase.child("sensor1").child("start").setValue(1);
-                                                        Log.d("now", getPreference("time"));
-                                                        setPreference("time", String.valueOf(getPreferenceToLong("time") + 1));
-                                                    } catch (InterruptedException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-                                            }
-                                        }).start();
+                                        startService(new Intent(MainActivity.this, TimerService.class));
+                                        mDatabase.child("sensor1").child("start").setValue(1);
+                                        racing = true;
                                     }
                                 }).show();
                     } else
@@ -409,41 +451,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSensor18() {
         findViewById(R.id.main_sensor18_end).setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("StaticFieldLeak")
             @Override
             public void onClick(View v) {
-                new AsyncTask<Void, Void, Void>() {
-                    AlertDialog dialog;
-                    @Override
-                    protected void onPostExecute(Void aVoid) {
-                        super.onPostExecute(aVoid);
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    protected void onPreExecute() {
-                        super.onPreExecute();
-                        ProgressBar progressBar = new ProgressBar(MainActivity.this);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setMessage("데이터를 초기화하는 중입니다..");
-                        builder.setView(progressBar);
-                        builder.setCancelable(false);
-                        dialog = builder.show();
-                        setPreference("racing", "false");
-                        resetLayouts();
-                        resetDatabase();
-                    }
-
-                    @Override
-                    protected Void doInBackground(Void... voids) {
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-                }.execute();
+                initializeData();
             }
         });
     }
