@@ -1253,13 +1253,6 @@
                         android:gravity="center_vertical|end">
 
                         <Button
-                            android:id="@+id/main_sensor12_setting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:text="12-13 기본 설정(필수)" />
-
-                        <Button
                             android:id="@+id/main_sensor12_setting2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

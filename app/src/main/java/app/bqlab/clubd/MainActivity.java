@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -52,8 +54,16 @@ public class MainActivity extends AppCompatActivity {
     long sensor14Distance = 0;
     long sensor15Distance = 0;
     long sensor16Distance = 0;
+    long sector1Score = 0;
+    long sector2Score = 0;
+    long sector3Score = 0;
+    long sector4Score = 0;
+    long copiedSector1Score = 0;
+    long copiedSector2Score = 0;
+    long copiedSector3Score = 0;
+    long copiedSector4Score = 0;
     boolean devMode;
-    boolean[] setSensors = new boolean[11];
+    boolean[] setSensors = new boolean[10];
     boolean[] passedSensors = new boolean[18];
     //objects
     SharedPreferences mPreference;
@@ -100,14 +110,19 @@ public class MainActivity extends AppCompatActivity {
         return Double.parseDouble(Objects.requireNonNull(mPreference.getString(key, "0")));
     }
 
+    private boolean getPreferenceToBoolean(String key) {
+        return Boolean.parseBoolean(Objects.requireNonNull(mPreference.getString(key, "false")));
+    }
+
     private boolean isAllSet() {
-        if (devMode)
+        if (devMode || getPreferenceToBoolean("allSet"))
             return true;
         for (int i = 0; i < setSensors.length; i++) {
             Log.d(String.valueOf(i), String.valueOf(setSensors[i]));
             if (!setSensors[i])
                 return false;
         }
+        setPreference("allSet", "true");
         return true;
     }
 
@@ -173,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
             setPreference("sensor8SetTime", "60000");
             setPreference("sensor9SetGap", "200");
             setPreference("sensor9SetSpeed", "10");
-            setPreference("sensor12SetRange", "1");
             setPreference("sensor12SetTime", "10");
             setPreference("sensor13SetGap", "200");
             setPreference("sensor13SetSpeed", "10");
@@ -349,33 +363,8 @@ public class MainActivity extends AppCompatActivity {
                     sensor12Time = TimerService.time;
                     sensor12Distance = (long) dataSnapshot.child("sensor12").child("distance").getValue();
                     String text = String.valueOf(sensor12Distance) + "cm";
-                    if (getPreferenceToInteger("sensor12SetRange") == 1) {
-                        if (sensor12Distance >= 10 && sensor12Distance <= 30) {
-                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
-                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(3));
-                        } else {
-                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("X");
-                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(1));
-                        }
-                    } else if (getPreferenceToInteger("sensor12SetRange") == 2) {
-                        if (sensor12Distance >= 30 && sensor12Distance <= 50) {
-                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
-                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(3));
-                        } else {
-                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("X");
-                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(1));
-                        }
-                    } else if (getPreferenceToInteger("sensor12SetRange") == 3) {
-                        if (sensor13Distance >= 50 && sensor13Distance <= 60) {
-                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
-                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(3));
-                        } else {
-                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("X");
-                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(1));
-                        }
-                    }
-                    ((TextView) findViewById(R.id.main_sensor12_pass)).setText(text);
-                    ((TextView) findViewById(R.id.main_sensor12_distance)).setText(String.valueOf(sensor12Distance));
+                    ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
+                    ((TextView) findViewById(R.id.main_sensor12_distance)).setText(String.valueOf(text));
                     ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(getScoreByDistance(sensor12Distance)));
                     passedSensors[11] = true;
                 } else if (isPassed("sensor13") && !passedSensors[12]) {
@@ -383,33 +372,8 @@ public class MainActivity extends AppCompatActivity {
                     sensor13Time = TimerService.time;
                     sensor13Distance = (long) dataSnapshot.child("sensor13").child("distance").getValue();
                     String text = String.valueOf(sensor13Distance) + "cm";
-                    if (getPreferenceToInteger("sensor12SetRange") == 1) {
-                        if (sensor13Distance >= 10 && sensor13Distance <= 30) {
-                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
-                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(3));
-                        } else {
-                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("X");
-                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(1));
-                        }
-                    } else if (getPreferenceToInteger("sensor12SetRange") == 2) {
-                        if (sensor12Distance >= 30 && sensor12Distance <= 50) {
-                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
-                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(3));
-                        } else {
-                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("X");
-                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(1));
-                        }
-                    } else if (getPreferenceToInteger("sensor12SetRange") == 3) {
-                        if (sensor13Distance >= 50 && sensor13Distance <= 60) {
-                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
-                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(3));
-                        } else {
-                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("X");
-                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(1));
-                        }
-                    }
-                    ((TextView) findViewById(R.id.main_sensor13_pass)).setText(text);
-                    ((TextView) findViewById(R.id.main_sensor13_distance)).setText(String.valueOf(sensor12Distance));
+                    ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
+                    ((TextView) findViewById(R.id.main_sensor13_distance)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(getScoreByDistance(sensor12Distance)));
                     passedSensors[12] = true;
                 } else if (isPassed("sensor14") && !passedSensors[13]) {
@@ -538,43 +502,116 @@ public class MainActivity extends AppCompatActivity {
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor5_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor6_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor7_score)).getText().toString());
-        final long sector1Score = totalScore;
+        sector1Score = totalScore;
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor9_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor10_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor11_score)).getText().toString());
-        final long sector2Score = totalScore - sector1Score;
+        sector2Score = totalScore - sector1Score;
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor12_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor13_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor14_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor15_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor16_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor17_score)).getText().toString());
-        final long sector3Score = totalScore - (sector1Score + sector2Score);
-        final long sector4Score = Integer.parseInt(((TextView) findViewById(R.id.main_sensor18_score)).getText().toString());
-        totalScore = sector1Score + sector2Score + sector3Score + sector4Score;
-        final EditText e = new EditText(MainActivity.this);
-        e.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        e.setSingleLine();
-        final long finalScore = totalScore;
+        sector3Score = totalScore - (sector1Score + sector2Score);
+        sector4Score = Integer.parseInt(((TextView) findViewById(R.id.main_sensor18_score)).getText().toString());
+        final EditText sector1Input = new EditText(MainActivity.this);
+        sector1Input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        sector1Input.setSingleLine();
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("경기 종료")
-                .setMessage("0.5부터 1.2 사이의 값을 입력하면 총 점수에 반영됩니다.")
-                .setView(e)
+                .setMessage("1구간의 심사위원 점수를 입력하세요.")
+                .setView(sector1Input)
                 .setCancelable(false)
                 .setPositiveButton("다음", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int score = (int) ((double) finalScore * Double.parseDouble(e.getText().toString()));
-                        String text = "1구간 " + sector1Score + "점, " + "2구간 " + sector2Score + "점," + "3구간 " + sector3Score + "점, " + "4구간 " + sector4Score + "점이며, " + "심사의원 점수를 반영한 이 플레이어의 총 점수는 " + String.valueOf(score) + "입니다.";
-                        new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("경기 종료")
-                                .setMessage(text)
-                                .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        initializeData();
-                                    }
-                                }).show();
+                        try {
+                            double sector1InputScore = Double.parseDouble(sector1Input.getText().toString());
+                            if (sector1InputScore >= 0.5 && sector1InputScore <= 1.2) {
+                                copiedSector1Score = (long) ((double) sector1Score * sector1InputScore);
+                                final EditText sector2Input = new EditText(MainActivity.this);
+                                sector2Input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                                sector2Input.setSingleLine();
+                                new AlertDialog.Builder(MainActivity.this)
+                                        .setTitle("경기 종료")
+                                        .setMessage("2구간의 심사위원 점수를 입력하세요.")
+                                        .setView(sector2Input)
+                                        .setCancelable(false)
+                                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                try {
+                                                    double sector2InputScore = Double.parseDouble(sector2Input.getText().toString());
+                                                    if (sector2InputScore >= 0.5 && sector2InputScore <= 1.2) {
+                                                        copiedSector2Score = (long) ((double) sector2Score * sector2InputScore);
+                                                        final EditText sector3Input = new EditText(MainActivity.this);
+                                                        sector3Input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                                                        sector3Input.setSingleLine();
+                                                        new AlertDialog.Builder(MainActivity.this)
+                                                                .setTitle("경기 종료")
+                                                                .setMessage("3구간의 심사위원 점수를 입력하세요.")
+                                                                .setView(sector3Input)
+                                                                .setCancelable(false)
+                                                                .setPositiveButton("다음", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                        try {
+                                                                            double sector3InputScore = Double.parseDouble(sector3Input.getText().toString());
+                                                                            if (sector3InputScore >= 0.5 && sector3InputScore <= 1.2) {
+                                                                                copiedSector3Score = (long) ((double) sector3Score * sector3InputScore);
+                                                                                final EditText sector4Input = new EditText(MainActivity.this);
+                                                                                sector4Input.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                                                                                sector4Input.setSingleLine();
+                                                                                new AlertDialog.Builder(MainActivity.this)
+                                                                                        .setTitle("경기 종료")
+                                                                                        .setMessage("4구간의 심사위원 점수를 입력하세요.")
+                                                                                        .setView(sector4Input)
+                                                                                        .setCancelable(false)
+                                                                                        .setPositiveButton("점수확인", new DialogInterface.OnClickListener() {
+                                                                                            @Override
+                                                                                            public void onClick(DialogInterface dialog, int which) {
+                                                                                                try {
+                                                                                                    double sector4InputScore = Double.parseDouble(sector4Input.getText().toString());
+                                                                                                    if (sector4InputScore >= 0.5 && sector4InputScore <= 1.2) {
+                                                                                                        copiedSector4Score = (long) ((double) sector4Score * sector4InputScore);
+                                                                                                        long score = copiedSector1Score + copiedSector2Score + copiedSector3Score + copiedSector4Score;
+                                                                                                        String text = "1구간 " + copiedSector1Score + "점, " + "2구간 " + copiedSector2Score + "점," + "3구간 " + copiedSector3Score + "점, " + "4구간 " + sector4Score + "점이며, " + "심사의원 점수를 반영한 이 플레이어의 총 점수는 " + String.valueOf(score) + "입니다.";
+                                                                                                        new AlertDialog.Builder(MainActivity.this)
+                                                                                                                .setTitle("경기 종료")
+                                                                                                                .setMessage(text)
+                                                                                                                .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
+                                                                                                                    @Override
+                                                                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                                                                        initializeData();
+                                                                                                                    }
+                                                                                                                }).show();
+                                                                                                    } else
+                                                                                                        Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                                                                                } catch (NumberFormatException e) {
+                                                                                                    Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                                                                                }
+                                                                                            }
+                                                                                        }).show();
+                                                                            } else
+                                                                                Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                                                        } catch (NumberFormatException e) {
+                                                                            Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                                                        }
+                                                                    }
+                                                                }).show();
+                                                    } else
+                                                        Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                                } catch (NumberFormatException e) {
+                                                    Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        }).show();
+                            } else
+                                Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
+                        } catch (NumberFormatException e) {
+                            Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도하세요.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }).show();
     }
@@ -917,42 +954,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setSensor12() {
-        findViewById(R.id.main_sensor12_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final RadioGroup select = new RadioGroup(MainActivity.this);
-                RadioButton r1 = new RadioButton(MainActivity.this);
-                RadioButton r2 = new RadioButton(MainActivity.this);
-                RadioButton r3 = new RadioButton(MainActivity.this);
-                r1.setText("10~30 이내 통과");
-                r2.setText("30~50 이내 통과");
-                r3.setText("50~60 이내 통과");
-                select.addView(r1);
-                select.addView(r2);
-                select.addView(r3);
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("통과기준 설정")
-                        .setMessage("통과 기준이 될 항목을 아래에서 고르세요.")
-                        .setView(select)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (select.getCheckedRadioButtonId() != -1) {
-                                    Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                    setPreference("sensor12SetRange", String.valueOf(select.getCheckedRadioButtonId()));
-                                    setSensors[6] = true;
-                                } else
-                                    Toast.makeText(MainActivity.this, "선택되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
         findViewById(R.id.main_sensor12_setting2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -974,7 +975,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (!e.getText().toString().isEmpty()) {
                                     Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                     setPreference("sensor12SetTime", e.getText().toString());
-                                    setSensors[7] = true;
+                                    setSensors[6] = true;
                                 } else
                                     Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
                             }
@@ -1024,7 +1025,7 @@ public class MainActivity extends AppCompatActivity {
                                                     if (!speedInput.getText().toString().isEmpty()) {
                                                         Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                                         setPreference("sensor13sSetSpeed", speedInput.getText().toString());
-                                                        setSensors[8] = true;
+                                                        setSensors[7] = true;
                                                     } else
                                                         Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
                                                 }
@@ -1078,7 +1079,7 @@ public class MainActivity extends AppCompatActivity {
                                                     if (!speedInput.getText().toString().isEmpty()) {
                                                         Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                                         setPreference("sensor14SetSpeed", speedInput.getText().toString());
-                                                        setSensors[9] = true;
+                                                        setSensors[8] = true;
                                                     } else
                                                         Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
                                                 }
@@ -1132,7 +1133,7 @@ public class MainActivity extends AppCompatActivity {
                                                     if (!speedInput.getText().toString().isEmpty()) {
                                                         Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                                         setPreference("sensor15SetSpeed", speedInput.getText().toString());
-                                                        setSensors[10] = true;
+                                                        setSensors[9] = true;
                                                     } else
                                                         Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
                                                 }
