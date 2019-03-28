@@ -486,7 +486,7 @@ public class MainActivity extends AppCompatActivity {
                         initializeData();
                     }
                 }).show();
-    }3
+    }
 
     private void refresh() {
         finish();
