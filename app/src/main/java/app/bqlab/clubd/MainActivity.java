@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     long sensor15Distance = 0;
     long sensor16Distance = 0;
     boolean devMode;
-    boolean[] setSensors = new boolean[11]; //test
-    boolean[] passedSensors = new boolean[18]; //test
+    boolean[] setSensors = new boolean[11];
+    boolean[] passedSensors = new boolean[18];
     //objects
     SharedPreferences mPreference;
     DatabaseReference mDatabase;
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         //initialize
-        devMode = true;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mPreference = getSharedPreferences("setting", MODE_PRIVATE);
         //call methods
@@ -374,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.main_sensor16_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 6) + getScoreByDistance(sensor16Distance)));
                     passedSensors[15] = true;
                 } else if (isPassed("sensor17") && !passedSensors[16]) {
-                    double time = TimerService.time - sensor12Time;
+                    long time = TimerService.time - sensor12Time;
                     String text = String.valueOf(time) + "ms";
                     long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor12SetTime"), 2);
                     ((TextView) findViewById(R.id.main_sensor17_time)).setText(text);
@@ -453,37 +452,48 @@ public class MainActivity extends AppCompatActivity {
 
     private void showResultDialog() {
         long totalScore = 0;
-        long sector1Score = 0;
-        long sector2Score = 0;
-        long sector3Score = 0;
-        long sector4Score = 0;
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor3_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor4_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor5_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor6_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor7_score)).getText().toString());
-        sector1Score = totalScore;
+        final long sector1Score = totalScore;
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor9_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor10_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor11_score)).getText().toString());
-        sector2Score = totalScore - sector1Score;
+        final long sector2Score = totalScore - sector1Score;
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor12_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor13_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor14_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor15_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor16_score)).getText().toString());
         totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor17_score)).getText().toString());
-        sector3Score = totalScore - (sector1Score + sector2Score);
-        sector4Score = Integer.parseInt(((TextView) findViewById(R.id.main_sensor18_score)).getText().toString());
+        final long sector3Score = totalScore - (sector1Score + sector2Score);
+        final long sector4Score = Integer.parseInt(((TextView) findViewById(R.id.main_sensor18_score)).getText().toString());
         totalScore = sector1Score + sector2Score + sector3Score + sector4Score;
-        String text = "1구간 " + sector1Score + "점, " + "2구간 " + sector2Score + "점," + "3구간 " + sector3Score + "점, " + "4구간 " + sector4Score + "점으로, " + "이 플레이어의 총 점수는 " + String.valueOf(totalScore) + "입니다.";
+        final EditText e = new EditText(MainActivity.this);
+        e.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        e.setSingleLine();
+        final long finalScore = totalScore;
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("경기 종료")
-                .setMessage(text)
-                .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
+                .setMessage("0.5부터 1.2 사이의 값을 입력하면 총 점수에 반영됩니다.")
+                .setView(e)
+                .setCancelable(false)
+                .setPositiveButton("다음", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        initializeData();
+                        int score = (int) ((double) finalScore * Double.parseDouble(e.getText().toString()));
+                        String text = "1구간 " + sector1Score + "점, " + "2구간 " + sector2Score + "점," + "3구간 " + sector3Score + "점, " + "4구간 " + sector4Score + "점이며, " + "심사의원 점수를 반영한 이 플레이어의 총 점수는 " + String.valueOf(score) + "입니다.";
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("경기 종료")
+                                .setMessage(text)
+                                .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        initializeData();
+                                    }
+                                }).show();
                     }
                 }).show();
     }
