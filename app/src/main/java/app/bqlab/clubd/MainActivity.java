@@ -28,44 +28,31 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
 import java.util.Objects;
+import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
     //variables
-    long sensor1Time = 0;
     long sensor2Time = 0;
     long sensor3Time = 0;
-    long sensor4Time = 0;
     long sensor5Time = 0;
-    long sensor6Time = 0;
-    long sensor7Time = 0;
-    long sensor8Time = 0;
     long sensor9Time = 0;
     long sensor10Time = 0;
-    long sensor11Time = 0;
     long sensor12Time = 0;
     long sensor13Time = 0;
     long sensor14Time = 0;
     long sensor15Time = 0;
-    long sensor16Time = 0;
-    long sensor17Time = 0;
-    long sensor1Distance = 0;
-    long sensor2Distance = 0;
     long sensor3Distance = 0;
     long sensor4Distance = 0;
     long sensor5Distance = 0;
     long sensor6Distance = 0;
-    long sensor7Distance = 0;
-    long sensor8Distance = 0;
     long sensor9Distance = 0;
     long sensor10Distance = 0;
-    long sensor11Distance = 0;
     long sensor12Distance = 0;
     long sensor13Distance = 0;
     long sensor14Distance = 0;
     long sensor15Distance = 0;
     long sensor16Distance = 0;
-    long sensor17Distance = 0;
-    boolean devMode, racing;
+    boolean devMode;
     boolean[] setSensors = new boolean[11]; //test
     boolean[] passedSensors = new boolean[18]; //test
     //objects
@@ -79,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
         setupDatabase();
+        initializeData();
     }
 
     private void init() {
@@ -116,9 +104,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean isAllSet() {
         if (devMode)
             return true;
-        for (boolean b : setSensors)
-            if (!b)
+        for (int i = 0; i < setSensors.length; i++) {
+            Log.d(String.valueOf(i), String.valueOf(setSensors[i]));
+            if (!setSensors[i])
                 return false;
+        }
         return true;
     }
 
@@ -137,15 +127,35 @@ public class MainActivity extends AppCompatActivity {
             return 1;
     }
 
-    private int getScoreBySpeed(int speed, int setSpeed, int maxScore) {
-        int score = maxScore / 2;
+    private long getScoreBySpeed(long speed, long setSpeed, long maxScore) {
+        long score = maxScore / 2;
         if (speed < (setSpeed / 2)) {
-            int speedGap = (setSpeed / 2) - speed;
-            score -= (long) (speedGap / 2);
+            long speedGap = (setSpeed / 2) - speed;
+            score -= speedGap / 2;
         } else if (speed > (setSpeed / 2)) {
-            int speedGap = speed - (setSpeed / 2);
-            score += (long) (speedGap / 2);
+            long speedGap = speed - (setSpeed / 2);
+            score += speedGap / 2;
         }
+        if (score < 1)
+            score = 1;
+        if (score > maxScore)
+            score = maxScore;
+        return score;
+    }
+
+    private long getScoreByTime(long time, long setTime, long maxScore) {
+        long score = maxScore / 2;
+        if (time < (setTime / 2)) {
+            long timeGap = (time / 2) - time;
+            score -= timeGap / 500;
+        } else if (time > (setTime / 2)) {
+            long timeGap = time - (time / 2);
+            score += timeGap / 500;
+        }
+        if (score < 1)
+            score = 1;
+        if (score > maxScore)
+            score = maxScore;
         return score;
     }
 
@@ -159,6 +169,19 @@ public class MainActivity extends AppCompatActivity {
             setPreference("sensor2SetTime", "60000");
             setPreference("sensor3SetGap", "200");
             setPreference("sensor3SetSpeed", "10");
+            setPreference("sensor5SetGap", "200");
+            setPreference("sensor5SetSpeed", "10");
+            setPreference("sensor8SetTime", "60000");
+            setPreference("sensor9SetGap", "200");
+            setPreference("sensor9SetSpeed", "10");
+            setPreference("sensor12SetRange", "1");
+            setPreference("sensor12SetTime", "10");
+            setPreference("sensor13SetGap", "200");
+            setPreference("sensor13SetSpeed", "10");
+            setPreference("sensor14SetGap", "200");
+            setPreference("sensor14SetSpeed", "10");
+            setPreference("sensor15SetGap", "200");
+            setPreference("sensor15SetSpeed", "10");
         }
     }
 
@@ -175,7 +198,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (isPassed("sensor3") && !passedSensors[2]) {
                     sensor3Time = TimerService.time;
                     sensor3Distance = (long) dataSnapshot.child("sensor3").child("distance").getValue();
-                    ((TextView) findViewById(R.id.main_sensor3_distance)).setText(String.valueOf(sensor3Distance));
+                    String text = String.valueOf(sensor3Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor3_distance)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor3_score)).setText(String.valueOf(getScoreByDistance(sensor3Distance)));
                     passedSensors[2] = true;
                 } else if (isPassed("sensor4") && !passedSensors[3]) {
@@ -185,10 +209,184 @@ public class MainActivity extends AppCompatActivity {
                     int setSpeed = getPreferenceToInteger("sensor3SetSpeed");
                     String text = String.valueOf((int) speed) + "km/h";
                     sensor4Distance = (long) dataSnapshot.child("sensor4").child("distance").getValue();
-                    ((TextView) findViewById(R.id.main_sensor4_distance)).setText(String.valueOf(sensor4Distance));
+                    String distanceText = String.valueOf(sensor4Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor4_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor4_speed)).setText(text);
-                    ((TextView) findViewById(R.id.main_sensor4_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 7)));
+                    ((TextView) findViewById(R.id.main_sensor4_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 7) + getScoreByDistance(sensor4Distance)));
                     passedSensors[3] = true;
+                } else if (isPassed("sensor5") && !passedSensors[4]) {
+                    sensor5Time = TimerService.time;
+                    sensor5Distance = (long) dataSnapshot.child("sensor5").child("distance").getValue();
+                    String text = sensor5Distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor5_distance)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor5_score)).setText(String.valueOf(getScoreByDistance(sensor5Distance)));
+                    passedSensors[4] = true;
+                } else if (isPassed("sensor6") && !passedSensors[5]) {
+                    double time = TimerService.time - sensor5Time;
+                    double gap = getPreferenceToDouble("sensor5SetGap");
+                    double speed = getSpeedInKmPerH(time, gap);
+                    int setSpeed = getPreferenceToInteger("sensor5SetSpeed");
+                    String text = String.valueOf((int) speed) + "km/h";
+                    sensor6Distance = (long) dataSnapshot.child("sensor6").child("distance").getValue();
+                    String distanceText = String.valueOf(sensor6Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor6_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor6_speed)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor6_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 7) + getScoreByDistance(sensor6Distance)));
+                    passedSensors[5] = true;
+                } else if (isPassed("sensor7") && !passedSensors[6]) {
+                    double time = TimerService.time - sensor2Time;
+                    String text = String.valueOf((int) time) + "ms";
+                    long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor2SetTime"), 2);
+                    ((TextView) findViewById(R.id.main_sensor7_time)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor7_pass)).setText("O");
+                    ((TextView) findViewById(R.id.main_sensor7_score)).setText(String.valueOf(score));
+                    passedSensors[6] = true;
+                } else if (isPassed("sensor8") && !passedSensors[7]) {
+                    ((TextView) findViewById(R.id.main_sensor8_pass)).setText("O");
+                    passedSensors[7] = true;
+                } else if (isPassed("sensor9") && !passedSensors[8]) {
+                    sensor9Time = TimerService.time;
+                    sensor9Distance = (long) dataSnapshot.child("sensor9").child("distance").getValue();
+                    String text = String.valueOf(sensor9Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor9_distance)).setText(String.valueOf(text));
+                    ((TextView) findViewById(R.id.main_sensor9_score)).setText(String.valueOf(getScoreByDistance(sensor9Distance)));
+                    passedSensors[8] = true;
+                } else if (isPassed("sensor10") && !passedSensors[9]) {
+                    double time = TimerService.time - sensor9Time;
+                    double gap = getPreferenceToDouble("sensor9SetGap");
+                    double speed = getSpeedInKmPerH(time, gap);
+                    int setSpeed = getPreferenceToInteger("sensor9SetSpeed");
+                    String text = String.valueOf((int) speed) + "km/h";
+                    sensor10Distance = (long) dataSnapshot.child("sensor9").child("distance").getValue();
+                    String distanceText = String.valueOf(sensor10Distance);
+                    ((TextView) findViewById(R.id.main_sensor10_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor10_speed)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor10_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 4) + getScoreByDistance(sensor10Distance)));
+                    passedSensors[9] = true;
+                } else if (isPassed("sensor11") && !passedSensors[10]) {
+                    double time = TimerService.time - sensor10Time;
+                    String text = String.valueOf((int) time) + "ms";
+                    long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor8SetTime"), 2);
+                    ((TextView) findViewById(R.id.main_sensor11_time)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor11_pass)).setText("O");
+                    ((TextView) findViewById(R.id.main_sensor11_score)).setText(String.valueOf(score));
+                    passedSensors[10] = true;
+                } else if (isPassed("sensor12") && !passedSensors[11]) {
+                    sensor12Time = TimerService.time;
+                    sensor12Distance = (long) dataSnapshot.child("sensor12").child("distance").getValue();
+                    String text = String.valueOf(sensor12Distance) + "cm";
+                    if (getPreferenceToInteger("sensor12SetRange") == 1) {
+                        if (sensor12Distance >= 10 && sensor12Distance <= 30) {
+                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
+                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(3));
+                        } else {
+                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("X");
+                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(1));
+                        }
+                    } else if (getPreferenceToInteger("sensor12SetRange") == 2) {
+                        if (sensor12Distance >= 30 && sensor12Distance <= 50) {
+                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
+                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(3));
+                        } else {
+                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("X");
+                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(1));
+                        }
+                    } else if (getPreferenceToInteger("sensor12SetRange") == 3) {
+                        if (sensor13Distance >= 50 && sensor13Distance <= 60) {
+                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
+                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(3));
+                        } else {
+                            ((TextView) findViewById(R.id.main_sensor12_pass)).setText("X");
+                            ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(1));
+                        }
+                    }
+                    ((TextView) findViewById(R.id.main_sensor12_pass)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor12_distance)).setText(String.valueOf(sensor12Distance));
+                    ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(getScoreByDistance(sensor12Distance)));
+                    passedSensors[11] = true;
+                } else if (isPassed("sensor13") && !passedSensors[12]) {
+                    sensor13Time = TimerService.time;
+                    sensor13Distance = (long) dataSnapshot.child("sensor13").child("distance").getValue();
+                    String text = String.valueOf(sensor13Distance) + "cm";
+                    if (getPreferenceToInteger("sensor12SetRange") == 1) {
+                        if (sensor13Distance >= 10 && sensor13Distance <= 30) {
+                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
+                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(3));
+                        } else {
+                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("X");
+                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(1));
+                        }
+                    } else if (getPreferenceToInteger("sensor12SetRange") == 2) {
+                        if (sensor12Distance >= 30 && sensor12Distance <= 50) {
+                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
+                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(3));
+                        } else {
+                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("X");
+                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(1));
+                        }
+                    } else if (getPreferenceToInteger("sensor12SetRange") == 3) {
+                        if (sensor13Distance >= 50 && sensor13Distance <= 60) {
+                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
+                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(3));
+                        } else {
+                            ((TextView) findViewById(R.id.main_sensor13_pass)).setText("X");
+                            ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(1));
+                        }
+                    }
+                    ((TextView) findViewById(R.id.main_sensor13_pass)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor13_distance)).setText(String.valueOf(sensor12Distance));
+                    ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(getScoreByDistance(sensor12Distance)));
+                    passedSensors[12] = true;
+                } else if (isPassed("sensor14") && !passedSensors[13]) {
+                    double time = TimerService.time - sensor13Time;
+                    double gap = getPreferenceToDouble("sensor13SetGap");
+                    double speed = getSpeedInKmPerH(time, gap);
+                    int setSpeed = getPreferenceToInteger("sensor13SetSpeed");
+                    String text = String.valueOf((int) speed) + "km/h";
+                    sensor14Distance = (long) dataSnapshot.child("sensor14").child("distance").getValue();
+                    String distanceText = String.valueOf(sensor14Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor14_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor14_speed)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor14_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 6) + getScoreByDistance(sensor14Distance)));
+                    passedSensors[13] = true;
+                } else if (isPassed("sensor15") && !passedSensors[14]) {
+                    double time = TimerService.time - sensor14Time;
+                    double gap = getPreferenceToDouble("sensor14SetGap");
+                    double speed = getSpeedInKmPerH(time, gap);
+                    int setSpeed = getPreferenceToInteger("sensor14SetSpeed");
+                    String text = String.valueOf((int) speed) + "km/h";
+                    sensor15Distance = (long) dataSnapshot.child("sensor15").child("distance").getValue();
+                    String distanceText = String.valueOf(sensor15Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor15_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor15_speed)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor15_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 6) + getScoreByDistance(sensor15Distance)));
+                    passedSensors[14] = true;
+                } else if (isPassed("sensor16") && !passedSensors[15]) {
+                    double time = TimerService.time - sensor15Time;
+                    double gap = getPreferenceToDouble("sensor15SetGap");
+                    double speed = getSpeedInKmPerH(time, gap);
+                    int setSpeed = getPreferenceToInteger("sensor15SetSpeed");
+                    String text = String.valueOf((int) speed) + "km/h";
+                    sensor16Distance = (long) dataSnapshot.child("sensor16").child("distance").getValue();
+                    String distanceText = String.valueOf(sensor16Distance) + "cm";
+                    ((TextView) findViewById(R.id.main_sensor16_distance)).setText(distanceText);
+                    ((TextView) findViewById(R.id.main_sensor16_speed)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor16_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 6) + getScoreByDistance(sensor16Distance)));
+                    passedSensors[15] = true;
+                } else if (isPassed("sensor17") && !passedSensors[16]) {
+                    double time = TimerService.time - sensor12Time;
+                    String text = String.valueOf(time) + "ms";
+                    long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor12SetTime"), 2);
+                    ((TextView) findViewById(R.id.main_sensor17_time)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor17_pass)).setText("O");
+                    ((TextView) findViewById(R.id.main_sensor17_score)).setText(String.valueOf(score));
+                    passedSensors[16] = true;
+                } else if (isPassed("sensor18") && !passedSensors[17]) {
+                    String text = String.valueOf(TimerService.time) + "ms";
+                    long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor1SetTime"), 10);
+                    ((TextView) findViewById(R.id.main_sensor18_time)).setText(text);
+                    ((TextView) findViewById(R.id.main_sensor18_score)).setText(String.valueOf(score));
+                    passedSensors[17] = true;
                 }
             }
 
@@ -201,46 +399,94 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private void initializeData() {
-        mPreference.edit().putString("time", "0").apply();
-        new AsyncTask<Void, Void, Void>() {
-            AlertDialog dialog;
-
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                dialog.dismiss();
-                refresh();
-            }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if ((long) dataSnapshot.child("sensor1").child("start").getValue() != 0) {
+                    mPreference.edit().putString("time", "0").apply();
+                    new AsyncTask<Void, Void, Void>() {
+                        AlertDialog dialog;
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                if (ServiceCheck.isRunning(MainActivity.this, TimerService.class.getName()))
-                    stopService(new Intent(MainActivity.this, TimerService.class));
-                for (boolean b : passedSensors)
-                    b = false;
-                ProgressBar progressBar = new ProgressBar(MainActivity.this);
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("데이터를 초기화하는 중입니다..");
-                builder.setView(progressBar);
-                builder.setCancelable(false);
-                dialog = builder.show();
-                TimerService.racing = false;
-//                resetLayouts();
-                resetDatabase();
-            }
+                        @Override
+                        protected void onPostExecute(Void aVoid) {
+                            super.onPostExecute(aVoid);
+                            dialog.dismiss();
+                            refresh();
+                        }
 
-            @Override
-            protected Void doInBackground(Void... voids) {
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                        @Override
+                        protected void onPreExecute() {
+                            super.onPreExecute();
+                            if (ServiceCheck.isRunning(MainActivity.this, TimerService.class.getName()))
+                                stopService(new Intent(MainActivity.this, TimerService.class));
+                            for (boolean b : passedSensors)
+                                b = false;
+                            ProgressBar progressBar = new ProgressBar(MainActivity.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                            builder.setMessage("데이터를 초기화하는 중입니다..");
+                            builder.setView(progressBar);
+                            builder.setCancelable(false);
+                            dialog = builder.show();
+                            TimerService.racing = false;
+                            resetDatabase();
+                        }
+
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            try {
+                                Thread.sleep(5000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        }
+                    }.execute();
                 }
-                return null;
             }
-        }.execute();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
+
+    private void showResultDialog() {
+        long totalScore = 0;
+        long sector1Score = 0;
+        long sector2Score = 0;
+        long sector3Score = 0;
+        long sector4Score = 0;
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor3_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor4_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor5_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor6_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor7_score)).getText().toString());
+        sector1Score = totalScore;
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor9_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor10_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor11_score)).getText().toString());
+        sector2Score = totalScore - sector1Score;
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor12_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor13_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor14_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor15_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor16_score)).getText().toString());
+        totalScore += Integer.parseInt(((TextView) findViewById(R.id.main_sensor17_score)).getText().toString());
+        sector3Score = totalScore - (sector1Score + sector2Score);
+        sector4Score = Integer.parseInt(((TextView) findViewById(R.id.main_sensor18_score)).getText().toString());
+        totalScore = sector1Score + sector2Score + sector3Score + sector4Score;
+        String text = "1구간 " + sector1Score + "점, " + "2구간 " + sector2Score + "점," + "3구간 " + sector3Score + "점, " + "4구간 " + sector4Score + "점으로, " + "이 플레이어의 총 점수는 " + String.valueOf(totalScore) + "입니다.";
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("경기 종료")
+                .setMessage(text)
+                .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        initializeData();
+                    }
+                }).show();
+    }3
 
     private void refresh() {
         finish();
@@ -269,6 +515,7 @@ public class MainActivity extends AppCompatActivity {
                     mDatabase.child("sensor7").child("distance").setValue(0);
                     mDatabase.child("sensor7").child("pass").setValue(0);
                     mDatabase.child("sensor8").child("pass").setValue(0);
+                    mDatabase.child("sensor8").child("distance").setValue(0);
                     mDatabase.child("sensor9").child("distance").setValue(0);
                     mDatabase.child("sensor9").child("pass").setValue(0);
                     mDatabase.child("sensor10").child("distance").setValue(0);
@@ -276,7 +523,9 @@ public class MainActivity extends AppCompatActivity {
                     mDatabase.child("sensor11").child("distance").setValue(0);
                     mDatabase.child("sensor11").child("pass").setValue(0);
                     mDatabase.child("sensor12").child("pass").setValue(0);
+                    mDatabase.child("sensor12").child("distance").setValue(0);
                     mDatabase.child("sensor13").child("pass").setValue(0);
+                    mDatabase.child("sensor13").child("distance").setValue(0);
                     mDatabase.child("sensor14").child("distance").setValue(0);
                     mDatabase.child("sensor14").child("pass").setValue(0);
                     mDatabase.child("sensor15").child("distance").setValue(0);
@@ -606,7 +855,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (select.getCheckedRadioButtonId() != -1) {
                                     Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                     setPreference("sensor12SetRange", String.valueOf(select.getCheckedRadioButtonId()));
-                                    setSensors[6] = false;
+                                    setSensors[6] = true;
                                 } else
                                     Toast.makeText(MainActivity.this, "선택되지 않았습니다.", Toast.LENGTH_LONG).show();
                             }
@@ -809,21 +1058,25 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_sensor18_end).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("경기 종료")
-                        .setMessage("아래 버튼을 눌러 현재 경기를 종료합니다.")
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                if (TimerService.racing) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("경기 종료")
+                            .setMessage("아래 버튼을 눌러 현재 경기를 종료합니다.")
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                initializeData();
-                            }
-                        }).show();
+                                }
+                            })
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    showResultDialog();
+                                }
+                            }).show();
+                } else
+                    Toast.makeText(MainActivity.this, "아직 경기가 시작되지 않았습니다.", Toast.LENGTH_LONG).show();
+
             }
         });
     }

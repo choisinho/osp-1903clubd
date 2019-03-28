@@ -8,7 +8,7 @@ import android.util.Log;
 public class TimerService extends Service {
 
     public static boolean racing;
-    public static int time;
+    public static long time;
 
     @Override
     public IBinder onBind(Intent intent) {
