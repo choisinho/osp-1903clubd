@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         init();
         setupDatabase();
         initializeData();
+        showResultDialog();
     }
 
     private void init() {
@@ -576,16 +579,24 @@ public class MainActivity extends AppCompatActivity {
                                                                                                     if (sector4InputScore >= 0.5 && sector4InputScore <= 1.2) {
                                                                                                         copiedSector4Score = (long) ((double) sector4Score * sector4InputScore);
                                                                                                         long score = copiedSector1Score + copiedSector2Score + copiedSector3Score + copiedSector4Score;
-                                                                                                        String text = "1구간 " + copiedSector1Score + "점, " + "2구간 " + copiedSector2Score + "점," + "3구간 " + copiedSector3Score + "점, " + "4구간 " + sector4Score + "점이며, " + "심사의원 점수를 반영한 이 플레이어의 총 점수는 " + String.valueOf(score) + "입니다.";
-                                                                                                        new AlertDialog.Builder(MainActivity.this)
+                                                                                                        TextView textView = new TextView(MainActivity.this);
+                                                                                                        textView.setText("1구간: " + copiedSector1Score + "점\n" + "2구간: " + copiedSector2Score + "점\n" + "3구간: " + copiedSector3Score + "점\n" + "4구간: " + copiedSector4Score + "점\n" + "총점: " + String.valueOf(score) + "점\n");
+                                                                                                        textView.setGravity(Gravity.CENTER);
+                                                                                                        textView.setTextSize(30);
+                                                                                                        textView.setTextColor(Color.BLACK);
+                                                                                                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
                                                                                                                 .setTitle("경기 종료")
-                                                                                                                .setMessage(text)
+                                                                                                                .setMessage("이 플레이어의 경기 결과입니다.")
+                                                                                                                .setView(textView)
                                                                                                                 .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
                                                                                                                     @Override
                                                                                                                     public void onClick(DialogInterface dialog, int which) {
                                                                                                                         initializeData();
                                                                                                                     }
-                                                                                                                }).show();
+                                                                                                                });
+                                                                                                        AlertDialog alertDialog = builder.create();
+                                                                                                        Objects.requireNonNull(alertDialog.getWindow()).setLayout(600, 800);
+                                                                                                        alertDialog.show();
                                                                                                     } else
                                                                                                         Toast.makeText(MainActivity.this, "잘못된 입력입니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show();
                                                                                                 } catch (NumberFormatException e) {
