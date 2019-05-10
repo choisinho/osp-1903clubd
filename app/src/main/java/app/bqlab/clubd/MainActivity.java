@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         init();
         setupDatabase();
         initializeData();
-        showResultDialog();
     }
 
     private void init() {
