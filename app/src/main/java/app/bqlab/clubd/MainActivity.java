@@ -298,6 +298,9 @@ public class MainActivity extends AppCompatActivity {
                             if (inputScore >= 0.5 && inputScore <= 1.5) {
                                 double totalScore = finalTotalScore;
                                 totalScore *= inputScore;
+                                if (totalScore <= 0) {
+                                    totalScore = 0;
+                                }
                                 String scoreText = "총점: " + totalScore + "점\n";
                                 TextView textView = new TextView(MainActivity.this);
                                 textView.setText(scoreText);
