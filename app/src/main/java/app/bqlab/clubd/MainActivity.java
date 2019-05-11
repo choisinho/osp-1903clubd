@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -31,6 +30,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     //Constants
     String TAG = "MainActivity";
+    //Variables
+    boolean[] passedSensors;
     //objects
     SharedPreferences mPreference;
     DatabaseReference mDatabase;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         //initialize
+        passedSensors = new boolean[18];
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mPreference = getSharedPreferences("setting", MODE_PRIVATE);
         //call methods
@@ -58,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mPreference.edit().putString(key, value).apply();
     }
 
-    private int getPreferenceToInteger(String key) {
-        return Integer.parseInt(Objects.requireNonNull(mPreference.getString(key, "0")));
+    private int getTime() {
+        return Integer.parseInt(Objects.requireNonNull(mPreference.getString("time", "0")));
     }
 
     private void setupDatabase() {
@@ -71,16 +73,134 @@ public class MainActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.main_sensor2_pass)).setText("O");
                     if (getDistance("sensor2") <= 70)
                         ((TextView) findViewById(R.id.main_sensor2_score)).setText("2");
+                    passedSensors[1] = true;
                 } else if (isPassed("sensor3")) {
-                    Log.d(TAG, "onDataChange: ");
                     long distance = getDistance("sensor3");
                     long score = 3 + ((50 - distance) / 10);
                     String distanceText = distance + "cm";
                     ((TextView) findViewById(R.id.main_sensor3_distance)).setText(distanceText);
                     if (distance <= 50)
-                        ((TextView) findViewById(R.id.main_sensor3_score)).setText((int) score);
+                        ((TextView) findViewById(R.id.main_sensor3_score)).setText(String.valueOf(score));
                     else
                         ((TextView) findViewById(R.id.main_sensor3_score)).setText("0");
+                    passedSensors[2] = true;
+                } else if (isPassed("sensor4")) {
+                    long distance = getDistance("sensor4");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor4_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor4_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor4_score)).setText("0");
+                    passedSensors[3] = true;
+                } else if (isPassed("sensor5")) {
+                    long distance = getDistance("sensor5");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor5_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor5_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor5_score)).setText("0");
+                    passedSensors[4] = true;
+                } else if (isPassed("sensor6")) {
+                    long distance = getDistance("sensor6");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor6_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor6_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor6_score)).setText("0");
+                    passedSensors[5] = true;
+                } else if (isPassed("sensor7")) {
+                    ((TextView) findViewById(R.id.main_sensor7_pass)).setText("O");
+                    if (getDistance("sensor7") <= 70)
+                        ((TextView) findViewById(R.id.main_sensor7_score)).setText("2");
+                    passedSensors[6] = true;
+                } else if (isPassed("sensor8")) {
+                    ((TextView) findViewById(R.id.main_sensor8_pass)).setText("O");
+                    if (getDistance("sensor8") <= 70)
+                        ((TextView) findViewById(R.id.main_sensor8_score)).setText("2");
+                    passedSensors[7] = true;
+                } else if (isPassed("sensor9")) {
+                    long distance = getDistance("sensor9");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor9_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor9_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor9_score)).setText("0");
+                    passedSensors[8] = true;
+                } else if (isPassed("sensor10")) {
+                    long distance = getDistance("sensor10");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor10_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor10_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor10_score)).setText("0");
+                    passedSensors[9] = true;
+                } else if (isPassed("sensor11")) {
+                    ((TextView) findViewById(R.id.main_sensor11_pass)).setText("O");
+                    if (getDistance("sensor11") <= 70)
+                        ((TextView) findViewById(R.id.main_sensor11_score)).setText("2");
+                    passedSensors[10] = true;
+                } else if (isPassed("sensor12")) {
+                    ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
+                    if (getDistance("sensor12") <= 70)
+                        ((TextView) findViewById(R.id.main_sensor12_score)).setText("2");
+                    passedSensors[11] = true;
+                } else if (isPassed("sensor13")) {
+                    ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
+                    if (getDistance("sensor13") <= 70)
+                        ((TextView) findViewById(R.id.main_sensor13_score)).setText("2");
+                    passedSensors[12] = true;
+                } else if (isPassed("sensor14")) {
+                    long distance = getDistance("sensor14");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor14_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor14_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor14_score)).setText("0");
+                    passedSensors[13] = true;
+                } else if (isPassed("sensor15")) {
+                    long distance = getDistance("sensor15");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor15_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor15_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor15_score)).setText("0");
+                    passedSensors[14] = true;
+                } else if (isPassed("sensor16")) {
+                    long distance = getDistance("sensor16");
+                    long score = 3 + ((50 - distance) / 10);
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor16_distance)).setText(distanceText);
+                    if (distance <= 50)
+                        ((TextView) findViewById(R.id.main_sensor16_score)).setText(String.valueOf(score));
+                    else
+                        ((TextView) findViewById(R.id.main_sensor16_score)).setText("0");
+                    passedSensors[15] = true;
+                } else if (isPassed("sensor17")) {
+                    ((TextView) findViewById(R.id.main_sensor17_pass)).setText("O");
+                    if (getDistance("sensor17") <= 70)
+                        ((TextView) findViewById(R.id.main_sensor17_score)).setText("2");
+                    passedSensors[16] = true;
+                } else if (isPassed("sensor18")) {
+                    long time = TimerService.time;
+                    long score = (getTime() + (getTime() - time)) / 1000;
+                    String timeText = time + "ms";
+                    ((TextView) findViewById(R.id.main_sensor18_time)).setText(timeText);
+                    ((TextView) findViewById(R.id.main_sensor18_score)).setText(String.valueOf(score));
+                    passedSensors[17] = true;
                 }
             }
 
@@ -207,7 +327,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isPassed(String sensor) {
-        return ((long) mSnapshot.child(sensor).child("pass").getValue()) == 1;
+        int senserNumber = Integer.parseInt(sensor.replace("sensor", "")) - 1;
+        return (((long) mSnapshot.child(sensor).child("pass").getValue()) == 1) && !passedSensors[senserNumber];
     }
 
     private long getDistance(String sensor) {
@@ -302,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.main_sensor1_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getPreferenceToInteger("time") > 0) {
+                if (getTime() > 0) {
                     if (!TimerService.racing) {
                         new AlertDialog.Builder(MainActivity.this)
                                 .setTitle("경기 시작")
