@@ -88,15 +88,6 @@ public class MainActivity extends AppCompatActivity {
         //call methods
         checkDeveloper();
         setSensor1();
-        setSensor2();
-        setSensor3();
-        setSensor5();
-        setSensor8();
-        setSensor9();
-        setSensor12();
-        setSensor13();
-        setSensor14();
-        setSensor15();
         setSensor18();
     }
 
@@ -293,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor4Distance = (long) dataSnapshot.child("sensor4").child("distance").getValue();
                     String distanceText = String.valueOf(sensor4Distance) + "cm";
                     ((TextView) findViewById(R.id.main_sensor4_distance)).setText(distanceText);
-                    ((TextView) findViewById(R.id.main_sensor4_speed)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor4_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 7) + getScoreByDistance(sensor4Distance)));
                     passedSensors[3] = true;
                 } else if (isPassed("sensor5") && !passedSensors[4]) {
@@ -314,7 +304,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor6Distance = (long) dataSnapshot.child("sensor6").child("distance").getValue();
                     String distanceText = String.valueOf(sensor6Distance) + "cm";
                     ((TextView) findViewById(R.id.main_sensor6_distance)).setText(distanceText);
-                    ((TextView) findViewById(R.id.main_sensor6_speed)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor6_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 7) + getScoreByDistance(sensor6Distance)));
                     passedSensors[5] = true;
                 } else if (isPassed("sensor7") && !passedSensors[6]) {
@@ -322,7 +311,6 @@ public class MainActivity extends AppCompatActivity {
                     double time = TimerService.time - sensor2Time;
                     String text = String.valueOf((int) time) + "ms";
                     long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor2SetTime"), 2);
-                    ((TextView) findViewById(R.id.main_sensor7_time)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor7_pass)).setText("O");
                     ((TextView) findViewById(R.id.main_sensor7_score)).setText(String.valueOf(score));
                     passedSensors[6] = true;
@@ -348,7 +336,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor10Distance = (long) dataSnapshot.child("sensor9").child("distance").getValue();
                     String distanceText = String.valueOf(sensor10Distance);
                     ((TextView) findViewById(R.id.main_sensor10_distance)).setText(distanceText);
-                    ((TextView) findViewById(R.id.main_sensor10_speed)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor10_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 4) + getScoreByDistance(sensor10Distance)));
                     passedSensors[9] = true;
                 } else if (isPassed("sensor11") && !passedSensors[10]) {
@@ -356,7 +343,6 @@ public class MainActivity extends AppCompatActivity {
                     double time = TimerService.time - sensor10Time;
                     String text = String.valueOf((int) time) + "ms";
                     long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor8SetTime"), 2);
-                    ((TextView) findViewById(R.id.main_sensor11_time)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor11_pass)).setText("O");
                     ((TextView) findViewById(R.id.main_sensor11_score)).setText(String.valueOf(score));
                     passedSensors[10] = true;
@@ -366,7 +352,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor12Distance = (long) dataSnapshot.child("sensor12").child("distance").getValue();
                     String text = String.valueOf(sensor12Distance) + "cm";
                     ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
-                    ((TextView) findViewById(R.id.main_sensor12_distance)).setText(String.valueOf(text));
                     ((TextView) findViewById(R.id.main_sensor12_score)).setText(String.valueOf(getScoreByDistance(sensor12Distance)));
                     passedSensors[11] = true;
                 } else if (isPassed("sensor13") && !passedSensors[12]) {
@@ -375,7 +360,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor13Distance = (long) dataSnapshot.child("sensor13").child("distance").getValue();
                     String text = String.valueOf(sensor13Distance) + "cm";
                     ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
-                    ((TextView) findViewById(R.id.main_sensor13_distance)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor13_score)).setText(String.valueOf(getScoreByDistance(sensor12Distance)));
                     passedSensors[12] = true;
                 } else if (isPassed("sensor14") && !passedSensors[13]) {
@@ -388,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor14Distance = (long) dataSnapshot.child("sensor14").child("distance").getValue();
                     String distanceText = String.valueOf(sensor14Distance) + "cm";
                     ((TextView) findViewById(R.id.main_sensor14_distance)).setText(distanceText);
-                    ((TextView) findViewById(R.id.main_sensor14_speed)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor14_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 6) + getScoreByDistance(sensor14Distance)));
                     passedSensors[13] = true;
                 } else if (isPassed("sensor15") && !passedSensors[14]) {
@@ -401,7 +384,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor15Distance = (long) dataSnapshot.child("sensor15").child("distance").getValue();
                     String distanceText = String.valueOf(sensor15Distance) + "cm";
                     ((TextView) findViewById(R.id.main_sensor15_distance)).setText(distanceText);
-                    ((TextView) findViewById(R.id.main_sensor15_speed)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor15_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 6) + getScoreByDistance(sensor15Distance)));
                     passedSensors[14] = true;
                 } else if (isPassed("sensor16") && !passedSensors[15]) {
@@ -414,7 +396,6 @@ public class MainActivity extends AppCompatActivity {
                     sensor16Distance = (long) dataSnapshot.child("sensor16").child("distance").getValue();
                     String distanceText = String.valueOf(sensor16Distance) + "cm";
                     ((TextView) findViewById(R.id.main_sensor16_distance)).setText(distanceText);
-                    ((TextView) findViewById(R.id.main_sensor16_speed)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor16_score)).setText(String.valueOf(getScoreBySpeed((int) speed, setSpeed, 6) + getScoreByDistance(sensor16Distance)));
                     passedSensors[15] = true;
                 } else if (isPassed("sensor17") && !passedSensors[16]) {
@@ -422,7 +403,6 @@ public class MainActivity extends AppCompatActivity {
                     long time = TimerService.time - sensor12Time;
                     String text = String.valueOf(time) + "ms";
                     long score = getScoreByTime(TimerService.time, getPreferenceToInteger("sensor12SetTime"), 2);
-                    ((TextView) findViewById(R.id.main_sensor17_time)).setText(text);
                     ((TextView) findViewById(R.id.main_sensor17_pass)).setText("O");
                     ((TextView) findViewById(R.id.main_sensor17_score)).setText(String.valueOf(score));
                     passedSensors[16] = true;
@@ -737,421 +717,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "이미 경기가 진행중입니다.", Toast.LENGTH_LONG).show();
                 } else
                     Toast.makeText(MainActivity.this, "아직 설정을 모두 마치지 않았습니다.", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void setSensor2() {
-        findViewById(R.id.main_sensor2_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText e = new EditText(MainActivity.this);
-                e.setInputType(InputType.TYPE_CLASS_NUMBER);
-                e.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본시간 설정")
-                        .setMessage("기준이 될 시간을 ms 단위로 입력하세요.")
-                        .setView(e)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!e.getText().toString().isEmpty()) {
-                                    Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                    setPreference("sensor2SetTime", e.getText().toString());
-                                    setSensors[1] = true;
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor3() {
-        findViewById(R.id.main_sensor3_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText gapInput = new EditText(MainActivity.this);
-                gapInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                gapInput.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본간격 설정")
-                        .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
-                        .setView(gapInput)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!gapInput.getText().toString().isEmpty()) {
-                                    setPreference("sensor3SetGap", gapInput.getText().toString());
-                                    final EditText speedInput = new EditText(MainActivity.this);
-                                    speedInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                    speedInput.setSingleLine();
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("기본속도 설정")
-                                            .setMessage("기준이 될 속도를 km/h 단위로 입력하세요.")
-                                            .setView(speedInput)
-                                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                }
-                                            })
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (!speedInput.getText().toString().isEmpty()) {
-                                                        Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                                        setPreference("sensor3SetSpeed", speedInput.getText().toString());
-                                                        setSensors[2] = true;
-                                                    } else
-                                                        Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                                                }
-                                            }).show();
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor5() {
-        findViewById(R.id.main_sensor5_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText gapInput = new EditText(MainActivity.this);
-                gapInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                gapInput.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본간격 설정")
-                        .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
-                        .setView(gapInput)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!gapInput.getText().toString().isEmpty()) {
-                                    setPreference("sensor5SetGap", gapInput.getText().toString());
-                                    final EditText speedInput = new EditText(MainActivity.this);
-                                    speedInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                    speedInput.setSingleLine();
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("기본속도 설정")
-                                            .setMessage("기준이 될 속도를 km/h 단위로 입력하세요.")
-                                            .setView(speedInput)
-                                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                }
-                                            })
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (!speedInput.getText().toString().isEmpty()) {
-                                                        Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                                        setPreference("sensor5SetSpeed", speedInput.getText().toString());
-                                                        setSensors[3] = true;
-                                                    } else
-                                                        Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                                                }
-                                            }).show();
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor8() {
-        findViewById(R.id.main_sensor8_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText e = new EditText(MainActivity.this);
-                e.setInputType(InputType.TYPE_CLASS_NUMBER);
-                e.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본시간 설정")
-                        .setMessage("기준이 될 시간을 ms 단위로 입력하세요.")
-                        .setView(e)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!e.getText().toString().isEmpty()) {
-                                    Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                    setPreference("sensor8SetTime", e.getText().toString());
-                                    setSensors[4] = true;
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor9() {
-        findViewById(R.id.main_sensor9_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText gapInput = new EditText(MainActivity.this);
-                gapInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                gapInput.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본간격 설정")
-                        .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
-                        .setView(gapInput)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!gapInput.getText().toString().isEmpty()) {
-                                    setPreference("sensor9SetGap", gapInput.getText().toString());
-                                    final EditText speedInput = new EditText(MainActivity.this);
-                                    speedInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                    speedInput.setSingleLine();
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("기본속도 설정")
-                                            .setMessage("기준이 될 속도를 km/h 단위로 입력하세요.")
-                                            .setView(speedInput)
-                                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                }
-                                            })
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (!speedInput.getText().toString().isEmpty()) {
-                                                        Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                                        setPreference("sensor9SetSpeed", speedInput.getText().toString());
-                                                        setSensors[5] = true;
-                                                    }
-                                                }
-                                            }).show();
-                                }
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor12() {
-        findViewById(R.id.main_sensor12_setting2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText e = new EditText(MainActivity.this);
-                e.setInputType(InputType.TYPE_CLASS_NUMBER);
-                e.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본시간 설정")
-                        .setMessage("기준이 될 시간을 ms 단위로 입력하세요.")
-                        .setView(e)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!e.getText().toString().isEmpty()) {
-                                    Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                    setPreference("sensor12SetTime", e.getText().toString());
-                                    setSensors[6] = true;
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor13() {
-        findViewById(R.id.main_sensor13_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText gapInput = new EditText(MainActivity.this);
-                gapInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                gapInput.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본간격 설정")
-                        .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
-                        .setView(gapInput)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!gapInput.getText().toString().isEmpty()) {
-                                    setPreference("sensor13SetGap", gapInput.getText().toString());
-                                    final EditText speedInput = new EditText(MainActivity.this);
-                                    speedInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                    speedInput.setSingleLine();
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("기본속도 설정")
-                                            .setMessage("기준이 될 속도를 km/h 단위로 입력하세요.")
-                                            .setView(speedInput)
-                                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                }
-                                            })
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (!speedInput.getText().toString().isEmpty()) {
-                                                        Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                                        setPreference("sensor13sSetSpeed", speedInput.getText().toString());
-                                                        setSensors[7] = true;
-                                                    } else
-                                                        Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                                                }
-                                            }).show();
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor14() {
-        findViewById(R.id.main_sensor14_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText gapInput = new EditText(MainActivity.this);
-                gapInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                gapInput.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본간격 설정")
-                        .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
-                        .setView(gapInput)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!gapInput.getText().toString().isEmpty()) {
-                                    setPreference("sensor14SetGap", gapInput.getText().toString());
-                                    final EditText speedInput = new EditText(MainActivity.this);
-                                    speedInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                    speedInput.setSingleLine();
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("기본속도 설정")
-                                            .setMessage("기준이 될 속도를 km/h 단위로 입력하세요.")
-                                            .setView(speedInput)
-                                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                }
-                                            })
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (!speedInput.getText().toString().isEmpty()) {
-                                                        Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                                        setPreference("sensor14SetSpeed", speedInput.getText().toString());
-                                                        setSensors[8] = true;
-                                                    } else
-                                                        Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                                                }
-                                            }).show();
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-    }
-
-    private void setSensor15() {
-        findViewById(R.id.main_sensor15_setting).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText gapInput = new EditText(MainActivity.this);
-                gapInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                gapInput.setSingleLine();
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("기본간격 설정")
-                        .setMessage("해당 구간의 간격을 cm 단위로 입력하세요.")
-                        .setView(gapInput)
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setPositiveButton("다음", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (!gapInput.getText().toString().isEmpty()) {
-                                    setPreference("sensor15SetGap", gapInput.getText().toString());
-                                    final EditText speedInput = new EditText(MainActivity.this);
-                                    speedInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                    speedInput.setSingleLine();
-                                    new AlertDialog.Builder(MainActivity.this)
-                                            .setTitle("기본속도 설정")
-                                            .setMessage("기준이 될 속도를 km/h 단위로 입력하세요.")
-                                            .setView(speedInput)
-                                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-
-                                                }
-                                            })
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    if (!speedInput.getText().toString().isEmpty()) {
-                                                        Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                                        setPreference("sensor15SetSpeed", speedInput.getText().toString());
-                                                        setSensors[9] = true;
-                                                    } else
-                                                        Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                                                }
-                                            }).show();
-                                } else
-                                    Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
             }
         });
     }
