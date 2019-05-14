@@ -340,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
                                         .setTitle("경기 종료")
                                         .setMessage("이 플레이어의 경기 결과입니다.")
                                         .setView(textView)
+                                        .setCancelable(false)
                                         .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
