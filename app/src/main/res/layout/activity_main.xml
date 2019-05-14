@@ -41,35 +41,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:background="@color/colorWhite"
-                        android:padding="5dp"
-                        android:text="거리"
-                        android:textAlignment="textStart"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/main_sensor1_distance"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/colorWhite"
-                        android:padding="5dp"
-                        android:text="0cm"
-                        android:textAlignment="textEnd"
-                        android:textSize="18sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:gravity="center_vertical|end">
 
                     <Button
