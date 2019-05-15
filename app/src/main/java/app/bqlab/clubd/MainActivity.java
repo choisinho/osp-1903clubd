@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -69,7 +70,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mSnapshot = dataSnapshot;
-                if (isPassed("sensor2")) {
+                if (isPassed("sensor1")) {
+                    passedSensors[0] = true;
+                } else if (isPassed("sensor2")) {
+                    long distance = getDistance("sensor2");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor2_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor2_pass)).setText("O");
                     if (getDistance("sensor2") <= 70)
                         ((TextView) findViewById(R.id.main_sensor2_score)).setText("2");
@@ -115,11 +121,17 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.main_sensor6_score)).setText("0");
                     passedSensors[5] = true;
                 } else if (isPassed("sensor7")) {
+                    long distance = getDistance("sensor7");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor7_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor7_pass)).setText("O");
                     if (getDistance("sensor7") <= 70)
                         ((TextView) findViewById(R.id.main_sensor7_score)).setText("2");
                     passedSensors[6] = true;
                 } else if (isPassed("sensor8")) {
+                    long distance = getDistance("sensor8");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor8_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor8_pass)).setText("O");
                     if (getDistance("sensor8") <= 70)
                         ((TextView) findViewById(R.id.main_sensor8_score)).setText("2");
@@ -145,16 +157,25 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.main_sensor10_score)).setText("0");
                     passedSensors[9] = true;
                 } else if (isPassed("sensor11")) {
+                    long distance = getDistance("sensor11");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor11_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor11_pass)).setText("O");
                     if (getDistance("sensor11") <= 70)
                         ((TextView) findViewById(R.id.main_sensor11_score)).setText("2");
                     passedSensors[10] = true;
                 } else if (isPassed("sensor12")) {
+                    long distance = getDistance("sensor12");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor12_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor12_pass)).setText("O");
                     if (getDistance("sensor12") <= 70)
                         ((TextView) findViewById(R.id.main_sensor12_score)).setText("2");
                     passedSensors[11] = true;
                 } else if (isPassed("sensor13")) {
+                    long distance = getDistance("sensor13");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor13_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor13_pass)).setText("O");
                     if (getDistance("sensor13") <= 70)
                         ((TextView) findViewById(R.id.main_sensor13_score)).setText("2");
@@ -190,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.main_sensor16_score)).setText("0");
                     passedSensors[15] = true;
                 } else if (isPassed("sensor17")) {
+                    long distance = getDistance("sensor17");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor17_distance)).setText(distanceText);
                     ((TextView) findViewById(R.id.main_sensor17_pass)).setText("O");
                     if (getDistance("sensor17") <= 70)
                         ((TextView) findViewById(R.id.main_sensor17_score)).setText("2");
@@ -200,6 +224,9 @@ public class MainActivity extends AppCompatActivity {
                     String timeText = (time / 1000) + "초";
                     ((TextView) findViewById(R.id.main_sensor18_time)).setText(timeText);
                     ((TextView) findViewById(R.id.main_sensor18_score)).setText(String.valueOf(score));
+                    long distance = getDistance("sensor18");
+                    String distanceText = distance + "cm";
+                    ((TextView) findViewById(R.id.main_sensor18_distance)).setText(distanceText);
                     passedSensors[17] = true;
                 }
             }
@@ -298,9 +325,6 @@ public class MainActivity extends AppCompatActivity {
                             if (inputScore >= 0.5 && inputScore <= 1.5) {
                                 double totalScore = finalTotalScore;
                                 totalScore *= inputScore;
-                                if (totalScore <= 0) {
-                                    totalScore = 0;
-                                }
                                 String scoreText = "총점: " + totalScore + "점\n";
                                 TextView textView = new TextView(MainActivity.this);
                                 textView.setText(scoreText);
@@ -311,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
                                         .setTitle("경기 종료")
                                         .setMessage("이 플레이어의 경기 결과입니다.")
                                         .setView(textView)
+                                        .setCancelable(false)
                                         .setPositiveButton("다시하기", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
@@ -425,6 +450,12 @@ public class MainActivity extends AppCompatActivity {
                         }).show();
             }
         });
+        findViewById(R.id.main_sensor1_reset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initializeData();
+            }
+        });
         findViewById(R.id.main_sensor1_start).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -442,9 +473,20 @@ public class MainActivity extends AppCompatActivity {
                                 .setPositiveButton("경기시작", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        startService(new Intent(MainActivity.this, TimerService.class));
                                         mDatabase.child("sensor1").child("start").setValue(1);
-                                        TimerService.racing = true;
+                                        Toast.makeText(MainActivity.this, "잠시후 경기가 시작됩니다.", Toast.LENGTH_LONG).show();
+                                        new CountDownTimer(3000, 1000) {
+                                            @Override
+                                            public void onTick(long millisUntilFinished) {
+
+                                            }
+
+                                            @Override
+                                            public void onFinish() {
+                                                startService(new Intent(MainActivity.this, TimerService.class));
+                                                TimerService.racing = true;
+                                            }
+                                        }.start();
                                     }
                                 }).show();
                     } else
