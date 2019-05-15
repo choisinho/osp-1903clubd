@@ -1539,7 +1539,7 @@
                             android:layout_weight="1"
                             android:background="@color/colorWhite"
                             android:padding="5dp"
-                            android:text="0ms"
+                            android:text="0초"
                             android:textAlignment="textEnd"
                             android:textSize="18sp" />
                     </LinearLayout>

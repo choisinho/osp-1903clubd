@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (isPassed("sensor18")) {
                     long time = TimerService.time;
                     long score = (getTime() + (getTime() - time)) / 1000;
-                    String timeText = time + "ms";
+                    String timeText = (time / 1000) + "초";
                     ((TextView) findViewById(R.id.main_sensor18_time)).setText(timeText);
                     ((TextView) findViewById(R.id.main_sensor18_score)).setText(String.valueOf(score));
                     passedSensors[17] = true;
@@ -385,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
                     mDatabase.child("sensor16").child("pass").setValue(0);
                     mDatabase.child("sensor17").child("distance").setValue(0);
                     mDatabase.child("sensor17").child("pass").setValue(0);
+                    mDatabase.child("sensor18").child("distance").setValue(0);
                     mDatabase.child("sensor18").child("pass").setValue(0);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -404,7 +405,7 @@ public class MainActivity extends AppCompatActivity {
                 e.setSingleLine();
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("기본시간 설정")
-                        .setMessage("기준이 될 시간을 ms 단위로 입력하세요.")
+                        .setMessage("기준이 될 시간을 초 단위로 입력하세요.")
                         .setView(e)
                         .setNegativeButton("취소", new DialogInterface.OnClickListener() {
                             @Override
@@ -415,8 +416,9 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (!e.getText().toString().isEmpty()) {
+                                    int input = Integer.parseInt(e.getText().toString());
                                     Toast.makeText(MainActivity.this, "설정이 완료되었습니다.", Toast.LENGTH_LONG).show();
-                                    setPreference("time", e.getText().toString());
+                                    setPreference("time", String.valueOf(input * 1000));
                                 } else
                                     Toast.makeText(MainActivity.this, "입력되지 않았습니다.", Toast.LENGTH_LONG).show();
                             }
