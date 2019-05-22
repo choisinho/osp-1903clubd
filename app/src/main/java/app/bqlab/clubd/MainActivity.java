@@ -222,6 +222,8 @@ public class MainActivity extends AppCompatActivity {
                     long time = TimerService.time;
                     long score = (getTime() + (getTime() - time)) / 1000;
                     String timeText = (time / 1000) + "초";
+                    if (score < 0)
+                        score = 0;
                     ((TextView) findViewById(R.id.main_sensor18_time)).setText(timeText);
                     ((TextView) findViewById(R.id.main_sensor18_score)).setText(String.valueOf(score));
                     long distance = getDistance("sensor18");
@@ -258,8 +260,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         protected void onPreExecute() {
                             super.onPreExecute();
-                            if (ServiceCheck.isRunning(MainActivity.this, TimerService.class.getName()))
-                                stopService(new Intent(MainActivity.this, TimerService.class));
+                            stopService(new Intent(MainActivity.this, TimerService.class));
                             ProgressBar progressBar = new ProgressBar(MainActivity.this);
                             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                             builder.setMessage("데이터를 초기화하는 중입니다..");
